@@ -67,4 +67,7 @@ interface TeacherPlannerDao {
     fun getTodayHomework(today:Long): LiveData<List<CHomework>>
     data class CHomework(val setName:String, val todoText: String)
 
+    @Query("SELECT * FROM event_table WHERE event_date = :today")
+    fun getTodayEvent(today:Long): LiveData<List<Event>>
+
 }

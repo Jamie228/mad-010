@@ -613,6 +613,7 @@
     <string name="no_classes">No Classes! Why not add one?</string>
     <string name="nothing_to_do_today">Nothing To Do Today!</string>
     <string name="no_homework_due_today">No Homework Due Today!</string>
+    <string name="no_events_today">No Events Today!</string>
 
     <string-array name="note_type_array">
         <item>To-Do</item>
