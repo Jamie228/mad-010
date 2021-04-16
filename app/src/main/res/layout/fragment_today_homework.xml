@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="todayHomeworkViewModel"
+            type="com.sid1804492.bottomnavtest.ui.today_tabs.TodayHomeworkViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

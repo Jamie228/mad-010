@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.sid1804492.bottomnavtest.R
+import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
+import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
+import com.sid1804492.bottomnavtest.databinding.FragmentTodayHomeworkBinding
 
 class TodayHomeworkFragment : Fragment() {
 
@@ -13,8 +18,22 @@ class TodayHomeworkFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_today_homework, container, false)
+
+        val binding: FragmentTodayHomeworkBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_today_homework, container, false)
+
+        val application = requireActivity().application
+        val dataSource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
+        val viewModelFactory = TodayHomeworkViewModelFactory(dataSource, application)
+
+        val todayHomeworkViewModel =
+            ViewModelProvider(this, viewModelFactory).get(TodayHomeworkViewModel::class.java)
+
+        binding.todayHomeworkViewModel = todayHomeworkViewModel
+        binding.lifecycleOwner = this
+
+        return binding.root
+
     }
 
 }
