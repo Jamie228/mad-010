@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
@@ -31,6 +32,20 @@ class TodayHomeworkFragment : Fragment() {
 
         binding.todayHomeworkViewModel = todayHomeworkViewModel
         binding.lifecycleOwner = this
+
+        val adapter = TodayHomeworkAdapter()
+        binding.homeworkListRecycler.adapter = adapter
+
+        todayHomeworkViewModel.homeworks.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+                if(adapter.data.size == 0) {
+                    binding.noHomeworkText.visibility = View.VISIBLE
+                } else {
+                    binding.noHomeworkText.visibility = View.GONE
+                }
+            }
+        })
 
         return binding.root
 
