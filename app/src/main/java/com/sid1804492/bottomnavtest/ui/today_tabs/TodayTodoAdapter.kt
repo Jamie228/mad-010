@@ -1,6 +1,5 @@
 package com.sid1804492.bottomnavtest.ui.today_tabs
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
-import com.sid1804492.bottomnavtest.database.ToDo
-import com.sid1804492.bottomnavtest.ui.classes.EventAdapter
-import kotlinx.android.synthetic.main.today_todo_item.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.today_list_item.view.*
 
 class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
 
@@ -48,7 +43,7 @@ class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.today_todo_item, parent, false)
+                val view = layoutInflater.inflate(R.layout.today_list_item, parent, false)
                 return ViewHolder(view)
             }
         }
