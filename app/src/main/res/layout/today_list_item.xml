@@ -21,7 +21,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/today_todo_set"
+                android:id="@+id/today_card_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -33,7 +33,7 @@
                 tools:text="9N1" />
 
             <TextView
-                android:id="@+id/today_todo_info"
+                android:id="@+id/today_card_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/today_todo_set"
+                app:layout_constraintTop_toBottomOf="@+id/today_card_title"
                 tools:text="Print hardware labelling worksheets." />
 
             <ImageButton

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
-import kotlinx.android.synthetic.main.today_list_item.view.*
 
 class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
 
@@ -30,8 +29,8 @@ class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
     }
 
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val setName: TextView = itemView.findViewById(R.id.today_todo_set)
-        val todoInfo: TextView = itemView.findViewById(R.id.today_todo_info)
+        val setName: TextView = itemView.findViewById(R.id.today_card_title)
+        val todoInfo: TextView = itemView.findViewById(R.id.today_card_info)
 
         val appDb = TeacherPlannerDatabase.getInstance(itemView.context)
 
