@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.sid1804492.bottomnavtest.ui.today.TodayFragment"
+        android:label="@string/title_today"
+        tools:layout="@layout/fragment_today" />
+
+    <fragment
+        android:id="@+id/navigation_classes"
+        android:name="com.sid1804492.bottomnavtest.ui.classes.ClassesFragment"
+        android:label="@string/title_classes"
+        tools:layout="@layout/fragment_classes" >
+        <action
+            android:id="@+id/action_navigation_classes_to_navigation_new_class"
+            app:destination="@id/navigation_new_class" />
+        <action
+            android:id="@+id/action_navigation_classes_to_navigation_view_class"
+            app:destination="@id/navigation_view_class" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_events"
+        android:name="com.sid1804492.bottomnavtest.ui.events.EventsFragment"
+        android:label="@string/title_events"
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_navigation_notifications_to_fragment_new_event"
+            app:destination="@id/navigation_new_event" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_new_class"
+        android:name="com.sid1804492.bottomnavtest.ui.classes.NewClassFragment"
+        android:label="@string/new_class_title"
+        tools:layout="@layout/fragment_new_class" >
+        <action
+            android:id="@+id/action_navigation_new_class_to_navigation_classes"
+            app:destination="@id/navigation_classes" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_new_event"
+        android:name="com.sid1804492.bottomnavtest.ui.events.NewEventFragment"
+        android:label="@string/new_event_title"
+        tools:layout="@layout/fragment_new_event">
+        <action
+            android:id="@+id/action_navigation_new_event_to_navigation_events"
+            app:destination="@id/navigation_events" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_view_class"
+        android:name="com.sid1804492.bottomnavtest.ui.classes.ViewClassFragment"
+        android:label="@string/view_class_fragment_title"
+        tools:layout="@layout/fragment_view_class" >
+        <argument
+            android:name="class_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_navigation_view_class_to_navigation_classes"
+            app:destination="@id/navigation_classes" />
+        <action
+            android:id="@+id/action_navigation_view_class_to_navigation_new_todo"
+            app:destination="@id/navigation_new_todo" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_new_todo"
+        android:name="com.sid1804492.bottomnavtest.ui.todo.NewTodoFragment"
+        android:label="New To-Do"
+        tools:layout="@layout/fragment_new_todo">
+        <argument
+            android:name="class_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_navigation_new_todo_to_navigation_view_class"
+            app:destination="@id/navigation_view_class"
+            app:popUpTo="@id/navigation_view_class"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
