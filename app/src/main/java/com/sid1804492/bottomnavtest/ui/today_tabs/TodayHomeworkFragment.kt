@@ -14,7 +14,7 @@ class TodayHomeworkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_homework, container, false)
+        return inflater.inflate(R.layout.fragment_today_homework, container, false)
     }
 
 }
