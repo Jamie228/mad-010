@@ -2,10 +2,8 @@ package com.sid1804492.bottomnavtest.ui.classes
 
 import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -17,11 +15,6 @@ import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.databinding.FragmentNewClassBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [NewClassFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NewClassFragment : Fragment() {
 
     private lateinit var newClassViewModel: NewClassViewModel
@@ -62,5 +55,25 @@ class NewClassFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.save_menu_button -> {
+            true
+            TODO("Swap saving to options menu rather than button")
+        }
+        else -> {
+            false
+        }
     }
 }
