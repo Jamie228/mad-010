@@ -63,7 +63,7 @@ interface TeacherPlannerDao {
     fun getTodayTodos(today: Long): LiveData<List<CTodo>>
     data class CTodo(val setName:String, val todoText: String)
 
-    @Query("SELECT todo_text AS todoText, set_name FROM todo_table INNER JOIN classes_table ON todo_table.class_id = classes_table.ClassId WHERE todo_table.todo_type = 'Homework' AND todo_table.todo_date = :today")
+    @Query("SELECT todo_text AS todoText, set_name AS setName FROM todo_table INNER JOIN classes_table ON todo_table.class_id = classes_table.ClassId WHERE todo_table.todo_type = 'Homework' AND todo_table.todo_date = :today")
     fun getTodayHomework(today:Long): LiveData<List<CHomework>>
     data class CHomework(val setName:String, val todoText: String)
 
