@@ -10,10 +10,8 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sid1804492.bottomnavtest.R
-import com.sid1804492.bottomnavtest.database.Event
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.database.ToDo
-import com.sid1804492.bottomnavtest.ui.classes.EventAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -57,7 +55,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
                 val popup: PopupMenu = PopupMenu(view.context, view)
                 popup.setOnMenuItemClickListener {
                     when (it.itemId) {
-                        R.id.delete_event_menu_item -> {
+                        R.id.delete_menu_item -> {
                             val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
                             builder.apply {
                                 setPositiveButton("Delete",
@@ -77,7 +75,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
                             true
                         }
-                        R.id.edit_event_menu_item ->
+                        R.id.edit_menu_item ->
                             true
                     }
                     true

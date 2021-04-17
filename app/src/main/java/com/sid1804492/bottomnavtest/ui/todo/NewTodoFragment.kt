@@ -111,4 +111,8 @@ class NewTodoFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        hideKeyboard(requireActivity())
+        super.onDestroy()
+    }
 }

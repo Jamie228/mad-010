@@ -9,7 +9,6 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.sid1804492.bottomnavtest.MainActivity
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.Event
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
@@ -55,8 +54,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
                 val popup: PopupMenu = PopupMenu(view.context, view)
                 popup.setOnMenuItemClickListener {
                     when (it.itemId) {
-                        R.id.delete_event_menu_item -> {
-                            //
+                        R.id.delete_menu_item -> {
                             val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
                             builder.apply {
                                 setPositiveButton("Delete",
@@ -76,7 +74,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
                             true
                         }
-                        R.id.edit_event_menu_item ->
+                        R.id.edit_menu_item ->
                             true
                     }
                     true

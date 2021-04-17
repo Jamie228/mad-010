@@ -71,7 +71,6 @@ class NewEventFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
-        //TODO("Swap save function to toolbar")
         R.id.save_menu_button -> {
             val editTextList = listOf<EditText>(binding.eventName, binding.eventText)
             hideKeyboard(requireActivity())
@@ -105,5 +104,10 @@ class NewEventFragment : Fragment() {
         else -> {
             false
         }
+    }
+
+    override fun onDestroy() {
+        hideKeyboard(requireActivity())
+        super.onDestroy()
     }
 }

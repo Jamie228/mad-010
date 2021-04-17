@@ -1,17 +1,23 @@
 package com.sid1804492.bottomnavtest.ui.classes
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.SchoolClass
-import kotlinx.android.synthetic.main.class_list_item.view.*
+import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
+import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class SchoolClassAdapter: RecyclerView.Adapter<SchoolClassAdapter.ViewHolder>() {
+class SchoolClassAdapter : RecyclerView.Adapter<SchoolClassAdapter.ViewHolder>() {
 
     var data = listOf<SchoolClass>()
         set(value) {
@@ -30,17 +36,54 @@ class SchoolClassAdapter: RecyclerView.Adapter<SchoolClassAdapter.ViewHolder>() 
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val classDetails: TextView = itemView.findViewById(R.id.classListText)
-        val editButton: ImageButton = itemView.findViewById(R.id.editClassButton)
+        val menuButton: ImageButton = itemView.findViewById(R.id.classMenuButton)
 
         fun bind(item: SchoolClass) {
             val res = itemView.context.resources
-
+            val appDb = TeacherPlannerDatabase.getInstance(itemView.context)
             classDetails.text = item.SetName + " - " + item.SubjectName + " - " + item.Room
             classDetails.setOnClickListener { view ->
-                view.findNavController().navigate(ClassesFragmentDirections.actionNavigationClassesToNavigationViewClass(item.ClassId))
+                view.findNavController().navigate(
+                    ClassesFragmentDirections.actionNavigationClassesToNavigationViewClass(item.ClassId)
+                )
             }
+
+            menuButton.setOnClickListener { view ->
+                val popup: PopupMenu = PopupMenu(view.context, view)
+                popup.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.delete_menu_item -> {
+                            val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                            builder.apply {
+                                setPositiveButton("Delete",
+                                    DialogInterface.OnClickListener { dialog, id ->
+                                        GlobalScope.launch {
+                                            delClass(item, appDb)
+                                        }
+                                    }
+                                )
+                                setNegativeButton("Cancel",
+                                DialogInterface.OnClickListener{ dialog, id ->
+                                    //Cancel!
+                                })
+                            }
+                            builder.setMessage("Do you want to delete " + item.SetName.toString() + "? This will delete all associated To-Do items, and cannot be undone.").setTitle("Delete Class")
+                            builder.show()
+
+                            true
+                        }
+                        R.id.edit_menu_item -> {
+                            true
+                        }
+                    }
+                    true
+                }
+                popup.inflate(R.menu.edit_event_menu)
+                popup.show()
+            }
+
         }
 
         companion object {
@@ -52,6 +95,10 @@ class SchoolClassAdapter: RecyclerView.Adapter<SchoolClassAdapter.ViewHolder>() 
 
                 return ViewHolder(view)
             }
+        }
+
+        private suspend fun delClass(sclass: SchoolClass, db: TeacherPlannerDatabase) {
+            db.teacherPlannerDao.deleteClass(sclass)
         }
     }
 

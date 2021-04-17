@@ -18,11 +18,6 @@ import com.sid1804492.bottomnavtest.ui.todo.TodoAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ViewClassFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ViewClassFragment : Fragment() {
 
     //Lateinit binding and arguments vars so accessible in all methods.
@@ -80,40 +75,40 @@ class ViewClassFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.view_class_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.deleteClass -> {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(view?.context)
-            builder.apply {
-                setPositiveButton("Delete",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        GlobalScope.launch {
-                            binding.viewClassViewModel!!.onDelete(arguments.classId)
-                        }
-                        requireView().findNavController().navigate(R.id.action_navigation_view_class_to_navigation_classes)
-                    }
-                )
-                setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        //Cancel!
-                    })
-            }
-            builder.setMessage("Do you want to delete the class: " + curclass.SetName + "?").setTitle("Delete Class")
-            builder.show()
-
-            true
-        }
-        else -> {
-            false
-        }
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setHasOptionsMenu(true)
+//    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.view_class_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+//        R.id.deleteClass -> {
+//            val builder: AlertDialog.Builder = AlertDialog.Builder(view?.context)
+//            builder.apply {
+//                setPositiveButton("Delete",
+//                    DialogInterface.OnClickListener { dialog, id ->
+//                        GlobalScope.launch {
+//                            binding.viewClassViewModel!!.onDelete(arguments.classId)
+//                        }
+//                        requireView().findNavController().navigate(R.id.action_navigation_view_class_to_navigation_classes)
+//                    }
+//                )
+//                setNegativeButton("Cancel",
+//                    DialogInterface.OnClickListener { dialog, id ->
+//                        //Cancel!
+//                    })
+//            }
+//            builder.setMessage("Do you want to delete the class: " + curclass.SetName + "?").setTitle("Delete Class")
+//            builder.show()
+//
+//            true
+//        }
+//        else -> {
+//            false
+//        }
+//    }
 }

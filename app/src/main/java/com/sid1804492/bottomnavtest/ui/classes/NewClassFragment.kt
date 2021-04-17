@@ -72,4 +72,9 @@ class NewClassFragment : Fragment() {
             false
         }
     }
+
+    override fun onDestroy() {
+        hideKeyboard(requireActivity())
+        super.onDestroy()
+    }
 }
