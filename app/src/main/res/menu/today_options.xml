@@ -4,7 +4,7 @@
     <item android:id="@+id/refresh_menu"
         android:title="Refresh"
         app:showAsAction="never"/>
-    <item android:id="@+id/options_menu"
-        android:title="Options"
+    <item android:id="@+id/location_on"
+        android:title="Enable Location"
         app:showAsAction="never"/>
 </menu>

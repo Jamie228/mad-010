@@ -3,6 +3,7 @@ package com.sid1804492.bottomnavtest.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import java.util.*
+import java.util.concurrent.Flow
 
 @Dao
 interface TeacherPlannerDao {
@@ -17,6 +18,9 @@ interface TeacherPlannerDao {
     @Insert
     suspend fun insertTodo(todo: ToDo)
 
+    @Insert
+    suspend fun insertUserOp(userOp: UserOps)
+
     //UPDATE STATEMENTS
     @Update
     suspend fun updateClass(schoolClass: SchoolClass)
@@ -26,6 +30,9 @@ interface TeacherPlannerDao {
 
     @Update
     suspend fun updateTodo(todo: ToDo)
+
+    @Update
+    suspend fun updateUserOp(userOp: UserOps)
 
     //DELETE STATEMENTS
     @Delete
@@ -44,6 +51,9 @@ interface TeacherPlannerDao {
     suspend fun deleteOldTodos(current_date: Long)
 
     //GET STATEMENTS
+    @Query("SELECT * FROM user_options WHERE name = 'LOCATION'")
+    suspend fun getLocOp(): UserOps?
+
     @Query("SELECT * FROM classes_table WHERE ClassId = :key")
     suspend fun getClass(key: Long): SchoolClass?
 

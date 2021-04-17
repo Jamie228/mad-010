@@ -69,21 +69,42 @@ class TodayFragment : Fragment() {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        if(!checkPermission()) {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.apply {
-                setPositiveButton("Yes, Enable Location",
-                DialogInterface.OnClickListener { dialog, which ->
-                    getLastLocation()
-                })
-                setNegativeButton("No Thanks",
-                DialogInterface.OnClickListener{ dialog, which -> })
+        todayViewModel.locOp.observe(viewLifecycleOwner, Observer { it ->
+            if(!checkPermission() && it == null) {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.apply {
+                    setPositiveButton("Yes, Enable Location",
+                        DialogInterface.OnClickListener { dialog, which ->
+                            todayViewModel.createLoc(true)
+                            getLastLocation()
+                        })
+                    setNegativeButton("No Thanks",
+                        DialogInterface.OnClickListener{ dialog, which ->
+                            todayViewModel.createLoc(false)
+                        })
+                }
+                builder.setMessage("This app uses your location to show you weather information. We don't store your location, but we will remember your preference.").setTitle("Enable Location?")
+                builder.show()
+            } else if (it != null) {
+                if (!checkPermission() && it.value) {
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                    builder.apply {
+                        setPositiveButton("Yes, Enable Location",
+                            DialogInterface.OnClickListener { dialog, which ->
+                                getLastLocation()
+                            })
+                        setNegativeButton("No Thanks",
+                            DialogInterface.OnClickListener{ dialog, which ->
+                                todayViewModel.onLocUpdate(it, false)
+                            })
+                    }
+                    builder.setMessage("This app uses your location to show you weather information. We don't store your location, but we will remember your preference.").setTitle("Enable Location?")
+                    builder.show()
+                }
+            } else {
+                getLastLocation()
             }
-            builder.setMessage("This app uses your location to show you weather information. We don't store your location.").setTitle("Enable Location?")
-            builder.show()
-        } else {
-            getLastLocation()
-        }
+        })
 
         val fragmentAdapter = TodayAdapter(this)
         binding.todayViewPager.adapter = fragmentAdapter
@@ -126,8 +147,20 @@ class TodayFragment : Fragment() {
             }
             true
         }
-        else -> {
+        R.id.location_on -> {
+            if (todayViewModel.locOp.value?.value!! && !checkPermission()) {
+                getLastLocation()
+            } else if (!todayViewModel.locOp.value?.value!!) {
+                todayViewModel.onLocUpdate(todayViewModel.locOp.value!!, true)
+                getLastLocation()
+            } else if (todayViewModel.locOp.value == null) {
+                todayViewModel.createLoc(true)
+                getLastLocation()
+            }
             true
+        }
+        else -> {
+            false
         }
     }
 
