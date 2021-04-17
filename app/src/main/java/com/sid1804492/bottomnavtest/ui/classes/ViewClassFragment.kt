@@ -74,41 +74,4 @@ class ViewClassFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
-//    }
-//
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.view_class_menu, menu)
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-//        R.id.deleteClass -> {
-//            val builder: AlertDialog.Builder = AlertDialog.Builder(view?.context)
-//            builder.apply {
-//                setPositiveButton("Delete",
-//                    DialogInterface.OnClickListener { dialog, id ->
-//                        GlobalScope.launch {
-//                            binding.viewClassViewModel!!.onDelete(arguments.classId)
-//                        }
-//                        requireView().findNavController().navigate(R.id.action_navigation_view_class_to_navigation_classes)
-//                    }
-//                )
-//                setNegativeButton("Cancel",
-//                    DialogInterface.OnClickListener { dialog, id ->
-//                        //Cancel!
-//                    })
-//            }
-//            builder.setMessage("Do you want to delete the class: " + curclass.SetName + "?").setTitle("Delete Class")
-//            builder.show()
-//
-//            true
-//        }
-//        else -> {
-//            false
-//        }
-//    }
 }
