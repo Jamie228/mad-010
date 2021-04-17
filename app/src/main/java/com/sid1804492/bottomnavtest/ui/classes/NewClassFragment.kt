@@ -18,13 +18,14 @@ import com.sid1804492.bottomnavtest.databinding.FragmentNewClassBinding
 class NewClassFragment : Fragment() {
 
     private lateinit var newClassViewModel: NewClassViewModel
+    private lateinit var binding: FragmentNewClassBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentNewClassBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_class, container, false
         )
         val application = requireNotNull(this.activity).application
@@ -35,24 +36,6 @@ class NewClassFragment : Fragment() {
 
         binding.newClassViewModel = newClassViewModel
         binding.lifecycleOwner = this
-
-        binding.saveNewClass.setOnClickListener { view ->
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(requireView().windowToken, 0)
-            newClassViewModel.onSave(
-                name = binding.subjectName.text.toString(),
-                room = binding.roomNumber.text.toString(),
-                set = binding.setName.text.toString(),
-                year = binding.yearGroup.text.toString()
-            )
-            Snackbar.make(
-                view,
-                "Class Saved",
-                Snackbar.LENGTH_SHORT
-            ).show()
-            view.findNavController().navigate(R.id.action_navigation_new_class_to_navigation_classes)
-
-        }
 
         return binding.root
     }
@@ -69,8 +52,21 @@ class NewClassFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_menu_button -> {
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+            newClassViewModel.onSave(
+                name = binding.subjectName.text.toString(),
+                room = binding.roomNumber.text.toString(),
+                set = binding.setName.text.toString(),
+                year = binding.yearGroup.text.toString()
+            )
+            Snackbar.make(
+                requireView(),
+                "Class Saved",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            view?.findNavController()?.navigate(R.id.action_navigation_new_class_to_navigation_classes)
             true
-            TODO("Swap saving to options menu rather than button")
         }
         else -> {
             false
