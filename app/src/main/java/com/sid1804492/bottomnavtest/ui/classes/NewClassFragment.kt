@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.databinding.FragmentNewClassBinding
+import com.sid1804492.bottomnavtest.hideKeyboard
 
 class NewClassFragment : Fragment() {
 
@@ -52,8 +53,7 @@ class NewClassFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_menu_button -> {
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+            hideKeyboard(requireActivity())
             newClassViewModel.onSave(
                 name = binding.subjectName.text.toString(),
                 room = binding.roomNumber.text.toString(),

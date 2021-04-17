@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
@@ -18,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.databinding.FragmentNewEventBinding
+import com.sid1804492.bottomnavtest.hideKeyboard
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,13 +29,14 @@ import java.util.*
 class NewEventFragment : Fragment() {
 
     private lateinit var newEventViewModel: NewEventViewModel
+    private lateinit var binding: FragmentNewEventBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentNewEventBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_event, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -53,14 +53,28 @@ class NewEventFragment : Fragment() {
             binding.eventDatePicker.updateDate(date["year"]!!, date["month"]!!, date["day"]!!)
         })
 
-        val editTextList = listOf<EditText>(binding.eventName, binding.eventText)
-
         binding.eventText.inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         binding.eventText.isSingleLine = false
 
-        binding.saveNewEventButton.setOnClickListener { view ->
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+        //TODO("Swap save function to toolbar")
+        R.id.save_menu_button -> {
+            val editTextList = listOf<EditText>(binding.eventName, binding.eventText)
+            hideKeyboard(requireActivity())
             var emptyField: Boolean = false
 
             for (field in editTextList) {
@@ -80,16 +94,16 @@ class NewEventFragment : Fragment() {
                     binding.eventText.text.toString()
                 )
 
-                Snackbar.make(view, "Event Saved", Snackbar.LENGTH_SHORT).show()
-                view.findNavController().navigate(R.id.action_navigation_new_event_to_navigation_events)
+                view?.let { Snackbar.make(it, "Event Saved", Snackbar.LENGTH_SHORT).show() }
+                view?.findNavController()?.navigate(R.id.action_navigation_new_event_to_navigation_events)
 
             } else {
-                Snackbar.make(view, "Please complete all fields", Snackbar.LENGTH_SHORT).show()
+                view?.let { Snackbar.make(it, "Please complete all fields", Snackbar.LENGTH_SHORT).show() }
             }
+            true
         }
-
-        // Inflate the layout for this fragment
-        return binding.root
+        else -> {
+            false
+        }
     }
-
 }

@@ -53,17 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventDatePicker" />
 
-    <Button
-        android:id="@+id/saveNewEventButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/save"
-        android:textColor="@color/design_default_color_on_primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventText" />
-
     <TextView
         android:id="@+id/eventDateHeader"
         android:layout_width="wrap_content"
