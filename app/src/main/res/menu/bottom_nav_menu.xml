@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_baseline_event_24"
         android:title="@string/title_events" />
 
+    <item
+        android:id="@+id/navigation_wellbeing"
+        android:icon="@drawable/ic_baseline_tag_faces_24"
+        android:title="@string/wellbeing"/>
+
 </menu>
