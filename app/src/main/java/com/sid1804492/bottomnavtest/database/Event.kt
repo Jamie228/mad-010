@@ -17,5 +17,8 @@ data class Event (
     var EventDate: Calendar,
 
     @ColumnInfo(name = "event_text")
-    var EventText: String
+    var EventText: String,
+
+    @ColumnInfo(name = "complete")
+    var Complete: Boolean = false
 )

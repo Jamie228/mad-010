@@ -34,6 +34,12 @@ interface TeacherPlannerDao {
     @Update
     suspend fun updateUserOp(userOp: UserOps)
 
+    @Query("UPDATE event_table SET complete = 1 WHERE EventId = :id")
+    suspend fun completeEvent(id: Long)
+
+    @Query("UPDATE event_table SET complete = 0 WHERE EventId = :id")
+    suspend fun incompleteEvent(id: Long)
+
     //DELETE STATEMENTS
     @Delete
     suspend fun deleteClass(schoolClass: SchoolClass)
@@ -77,7 +83,7 @@ interface TeacherPlannerDao {
     fun getTodayHomework(today:Long): LiveData<List<CHomework>>
     data class CHomework(val setName:String, val todoText: String)
 
-    @Query("SELECT * FROM event_table WHERE event_date = :today")
+    @Query("SELECT * FROM event_table WHERE event_date = :today ORDER BY complete")
     fun getTodayEvent(today:Long): LiveData<List<Event>>
 
 }

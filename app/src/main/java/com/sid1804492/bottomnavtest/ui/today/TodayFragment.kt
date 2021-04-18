@@ -143,18 +143,6 @@ class TodayFragment : Fragment() {
             }
             true
         }
-        R.id.location_on -> {
-            if (todayViewModel.locOp.value?.value!! && !checkPermission()) {
-                getLastLocation()
-            } else if (!todayViewModel.locOp.value?.value!!) {
-                todayViewModel.onLocUpdate(todayViewModel.locOp.value!!, true)
-                getLastLocation()
-            } else if (todayViewModel.locOp.value == null) {
-                todayViewModel.createLoc(true)
-                getLastLocation()
-            }
-            true
-        }
         else -> {
             false
         }
