@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
@@ -16,7 +15,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
@@ -32,8 +30,6 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.InputStream
-import java.net.URL
 import kotlin.math.roundToInt
 
 const val BASE_URL = "https://api.openweathermap.org/"

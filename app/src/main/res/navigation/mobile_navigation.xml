@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.sid1804492.bottomnavtest.ui.today.TodayFragment"
         android:label="@string/title_today"
-        tools:layout="@layout/fragment_today" />
+        tools:layout="@layout/fragment_today" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_options"
+            app:destination="@id/navigation_options" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_classes"
@@ -90,4 +94,8 @@
         android:name="com.sid1804492.bottomnavtest.ui.wellbeing.WellbeingFragment"
         android:label="Wellbeing and Practice"
         tools:layout="@layout/fragment_wellbeing" />
+    <fragment
+        android:id="@+id/navigation_options"
+        android:name="com.sid1804492.bottomnavtest.ui.options.OptionsFragment"
+        android:label="OptionsFragment" />
 </navigation>
