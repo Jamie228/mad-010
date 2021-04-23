@@ -40,6 +40,12 @@ interface TeacherPlannerDao {
     @Query("UPDATE event_table SET complete = 0 WHERE EventId = :id")
     suspend fun incompleteEvent(id: Long)
 
+    @Query("UPDATE todo_table SET todo_complete = 1 WHERE TodoId = :id")
+    suspend fun completeTodo(id: Long)
+
+    @Query("UPDATE todo_table SET todo_complete = 0 WHERE TodoId = :id")
+    suspend fun incompleteTodo(id: Long)
+
     //DELETE STATEMENTS
     @Delete
     suspend fun deleteClass(schoolClass: SchoolClass)
@@ -75,13 +81,13 @@ interface TeacherPlannerDao {
     @Query("SELECT * FROM todo_table WHERE class_id = :class_id ORDER BY todo_date ASC")
     fun getClassesTodos(class_id: Long): LiveData<List<ToDo>>
 
-    @Query("SELECT todo_text AS todoText, set_name AS setName FROM todo_table INNER JOIN classes_table ON todo_table.class_id = classes_table.ClassId WHERE todo_table.todo_type = 'To-Do' AND todo_table.todo_date = :today")
+    @Query("SELECT todo_text AS todoText, set_name AS setName, todo_complete AS complete, TodoId AS id FROM todo_table INNER JOIN classes_table ON todo_table.class_id = classes_table.ClassId WHERE todo_table.todo_type = 'To-Do' AND todo_table.todo_date = :today")
     fun getTodayTodos(today: Long): LiveData<List<CTodo>>
-    data class CTodo(val setName:String, val todoText: String)
+    data class CTodo(val setName:String, val todoText: String, val complete: Boolean, val id: Long)
 
-    @Query("SELECT todo_text AS todoText, set_name AS setName FROM todo_table INNER JOIN classes_table ON todo_table.class_id = classes_table.ClassId WHERE todo_table.todo_type = 'Homework' AND todo_table.todo_date = :today")
+    @Query("SELECT todo_text AS todoText, set_name AS setName, todo_complete AS complete, TodoId AS id FROM todo_table INNER JOIN classes_table ON todo_table.class_id = classes_table.ClassId WHERE todo_table.todo_type = 'Homework' AND todo_table.todo_date = :today")
     fun getTodayHomework(today:Long): LiveData<List<CHomework>>
-    data class CHomework(val setName:String, val todoText: String)
+    data class CHomework(val setName:String, val todoText: String, val complete: Boolean, val id: Long)
 
     @Query("SELECT * FROM event_table WHERE event_date = :today ORDER BY complete")
     fun getTodayEvent(today:Long): LiveData<List<Event>>
