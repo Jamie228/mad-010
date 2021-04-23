@@ -86,4 +86,13 @@ interface TeacherPlannerDao {
     @Query("SELECT * FROM event_table WHERE event_date = :today ORDER BY complete")
     fun getTodayEvent(today:Long): LiveData<List<Event>>
 
+    @Query("SELECT COUNT(*) FROM event_table WHERE event_date = :today")
+    suspend fun getTodayEventCount(today: Long) : Int
+
+    @Query("SELECT COUNT(*) FROM todo_table WHERE todo_date = :today AND todo_type = 'To-Do'")
+    suspend fun getTodayTodoCount(today: Long) : Int
+
+    @Query("SELECT COUNT(*) FROM todo_table WHERE todo_date = :today AND todo_type = 'Homework'")
+    suspend fun getTodayHomeworkCount(today: Long) : Int
+
 }

@@ -13,16 +13,19 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sid1804492.bottomnavtest.ApiRequests
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.databinding.FragmentTodayBinding
+import kotlinx.android.synthetic.main.fragment_today.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -109,12 +112,39 @@ class TodayFragment : Fragment() {
             when(position) {
                 0 -> {
                     tab.text = "To-Do's"
+                    todayViewModel.todoNo.observe(viewLifecycleOwner, Observer {
+                        if (it!! > 0) {
+                            tab.orCreateBadge.number = it
+                        } else {
+                            if (tab.badge != null) {
+                                tab.removeBadge()
+                            }
+                        }
+                    })
                 }
                 1 -> {
                     tab.text = "Homework"
+                    todayViewModel.homeworkNo.observe(viewLifecycleOwner, Observer {
+                        if (it!! > 0) {
+                            tab.orCreateBadge.number = it
+                        } else {
+                            if (tab.badge != null) {
+                                tab.removeBadge()
+                            }
+                        }
+                    })
                 }
                 else -> {
                     tab.text = "Events"
+                    todayViewModel.eventNo.observe(viewLifecycleOwner, Observer {
+                        if (it!! > 0) {
+                            tab.orCreateBadge.number = it
+                        } else {
+                            if (tab.badge != null) {
+                                tab.removeBadge()
+                            }
+                        }
+                    })
                 }
             }
         }.attach()
