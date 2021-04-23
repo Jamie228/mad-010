@@ -25,6 +25,8 @@
     <string name="due_date">Due Date</string>
     <string name="no_to_do_s_for_this_class">No To-Do\'s for this class!</string>
     <string name="no_events">No Upcoming Events!</string>
+    <string name="notification_channel_id">WELLBEING_NOTIFICATION</string>
+    <string name="notification_title"></string>
 
     <string name="wi_day_sunny">&#xf00d;</string>
     <string name="wi_day_cloudy">&#xf002;</string>

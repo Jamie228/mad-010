@@ -45,7 +45,6 @@ class TodayEventAdapter : RecyclerView.Adapter<TodayEventAdapter.ViewHolder>() {
         fun bind(item: Event) {
             setName.text = item.EventName
             todoInfo.text = item.EventText
-
             if(item.Complete) {
                 setName.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

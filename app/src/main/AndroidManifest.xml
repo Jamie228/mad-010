@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BottomNavTest">
+        <receiver
+            android:name=".NotificationReceiver"></receiver>
         <activity
             android:name=".MainActivity"
             android:label="@string/teacher_planner">

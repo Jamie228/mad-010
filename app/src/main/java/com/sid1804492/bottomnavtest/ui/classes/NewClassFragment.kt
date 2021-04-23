@@ -56,7 +56,7 @@ class NewClassFragment : Fragment() {
             hideKeyboard(requireActivity())
             newClassViewModel.onSave(
                 name = binding.subjectName.text.toString(),
-                room = binding.roomNumber.text.toString(),
+                room = binding.classroom.text.toString(),
                 set = binding.setName.text.toString(),
                 year = binding.yearGroup.text.toString()
             )
