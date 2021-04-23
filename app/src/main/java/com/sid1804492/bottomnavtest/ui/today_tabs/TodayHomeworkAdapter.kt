@@ -1,5 +1,7 @@
 package com.sid1804492.bottomnavtest.ui.today_tabs
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -73,6 +75,21 @@ class TodayHomeworkAdapter : RecyclerView.Adapter<TodayHomeworkAdapter.ViewHolde
                                 true
                             }
                             R.id.today_item_delete_two -> {
+                                val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                                builder.apply {
+                                    setPositiveButton("Delete",
+                                        DialogInterface.OnClickListener { dialog, which ->
+                                            GlobalScope.launch {
+                                                delTodo(item.id)
+                                            }
+                                        })
+                                    setNegativeButton("Cancel",
+                                        DialogInterface.OnClickListener { dialog, which ->
+                                            //Cancel!
+                                        })
+                                }
+                                builder.setMessage("Do you want to delete this piece of homework? This cannot be undone.").setTitle("Delete Homework?")
+                                builder.show()
                                 true
                             }
                             R.id.today_item_edit_two -> {
@@ -105,6 +122,21 @@ class TodayHomeworkAdapter : RecyclerView.Adapter<TodayHomeworkAdapter.ViewHolde
                                 true
                             }
                             R.id.today_item_delete -> {
+                                val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                                builder.apply {
+                                    setPositiveButton("Delete",
+                                        DialogInterface.OnClickListener { dialog, which ->
+                                            GlobalScope.launch {
+                                                delTodo(item.id)
+                                            }
+                                        })
+                                    setNegativeButton("Cancel",
+                                        DialogInterface.OnClickListener { dialog, which ->
+                                            //Cancel!
+                                        })
+                                }
+                                builder.setMessage("Do you want to delete this piece of homework? This cannot be undone.").setTitle("Delete Homework?")
+                                builder.show()
                                 true
                             }
                             R.id.today_item_edit -> {
@@ -119,6 +151,10 @@ class TodayHomeworkAdapter : RecyclerView.Adapter<TodayHomeworkAdapter.ViewHolde
                     popup.show()
                 }
             }
+        }
+
+        private suspend fun delTodo(id: Long) {
+            db.teacherPlannerDao.deleteTodoWithId(id)
         }
 
         private suspend fun completeTodo(id: Long) {

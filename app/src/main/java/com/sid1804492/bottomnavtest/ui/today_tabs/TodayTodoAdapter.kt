@@ -1,5 +1,7 @@
 package com.sid1804492.bottomnavtest.ui.today_tabs
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -44,14 +46,15 @@ class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
         fun bind(item: TeacherPlannerDao.CTodo) {
             setName.text = item.setName
             todoInfo.text = item.todoText
-            if(item.complete) {
+            if (item.complete) {
                 setName.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
                 todoInfo.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
-                itemView.findViewById<CardView>(R.id.item_card).setCardBackgroundColor(res.getColor(R.color.inactive))
+                itemView.findViewById<CardView>(R.id.item_card)
+                    .setCardBackgroundColor(res.getColor(R.color.inactive))
                 moreButton.setBackgroundColor(res.getColor(R.color.inactive))
 
                 moreButton.setOnClickListener { view ->
@@ -71,6 +74,21 @@ class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
                                 true
                             }
                             R.id.today_item_delete_two -> {
+                                val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                                builder.apply {
+                                    setPositiveButton("Delete",
+                                        DialogInterface.OnClickListener { dialog, which ->
+                                            GlobalScope.launch {
+                                                delTodo(item.id)
+                                            }
+                                        })
+                                    setNegativeButton("Cancel",
+                                    DialogInterface.OnClickListener { dialog, which ->
+                                        //Cancel!
+                                    })
+                                }
+                                builder.setMessage("Do you want to delete this To-Do item? This cannot be undone.").setTitle("Delete To-Do?")
+                                builder.show()
                                 true
                             }
                             R.id.today_item_edit_two -> {
@@ -89,7 +107,8 @@ class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
 
                 setName.paintFlags = 0
                 todoInfo.paintFlags = 0
-                itemView.findViewById<CardView>(R.id.item_card).setCardBackgroundColor(res.getColor(R.color.white))
+                itemView.findViewById<CardView>(R.id.item_card)
+                    .setCardBackgroundColor(res.getColor(R.color.white))
                 moreButton.setBackgroundColor(res.getColor(R.color.white))
 
                 moreButton.setOnClickListener { view ->
@@ -103,6 +122,21 @@ class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
                                 true
                             }
                             R.id.today_item_delete -> {
+                                val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                                builder.apply {
+                                    setPositiveButton("Delete",
+                                        DialogInterface.OnClickListener { dialog, which ->
+                                            GlobalScope.launch {
+                                                delTodo(item.id)
+                                            }
+                                        })
+                                    setNegativeButton("Cancel",
+                                        DialogInterface.OnClickListener { dialog, which ->
+                                            //Cancel!
+                                        })
+                                }
+                                builder.setMessage("Do you want to delete this To-Do item? This cannot be undone.").setTitle("Delete To-Do?")
+                                builder.show()
                                 true
                             }
                             R.id.today_item_edit -> {
@@ -125,6 +159,10 @@ class TodayTodoAdapter : RecyclerView.Adapter<TodayTodoAdapter.ViewHolder>() {
 
         private suspend fun incompleteTodo(id: Long) {
             db.teacherPlannerDao.incompleteTodo(id)
+        }
+
+        private suspend fun delTodo(id: Long) {
+            db.teacherPlannerDao.deleteTodoWithId(id)
         }
 
         companion object {

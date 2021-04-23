@@ -62,6 +62,12 @@ interface TeacherPlannerDao {
     @Query("DELETE FROM todo_table WHERE todo_date < :current_date")
     suspend fun deleteOldTodos(current_date: Long)
 
+    @Query("DELETE FROM todo_table WHERE TodoId = :id")
+    suspend fun deleteTodoWithId(id: Long)
+
+    @Query("DELETE FROM event_table WHERE EventId = :id")
+    suspend fun deleteEventWithId(id: Long)
+
     //GET STATEMENTS
     @Query("SELECT * FROM user_options WHERE name = 'LOCATION'")
     suspend fun getLocOp(): UserOps?
