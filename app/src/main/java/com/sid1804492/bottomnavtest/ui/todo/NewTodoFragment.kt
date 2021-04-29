@@ -7,6 +7,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Spinner
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -80,29 +81,47 @@ class NewTodoFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_menu_button -> {
-            val cal: Calendar = Calendar.getInstance()
-            cal.clear()
-            cal.set(
-                binding.todoDatePicker.year,
-                binding.todoDatePicker.month,
-                binding.todoDatePicker.dayOfMonth
-            )
-            newTodoViewModel.onSave(
-                binding.todoTypeSpinner.selectedItem.toString(),
-                cal,
-                binding.todoTextField.text.toString()
-            )
-            view?.let {
-                Snackbar.make(
-                    it,
-                    "To-Do Saved",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
-//            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//            imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+
+            val fieldList = listOf<EditText>(binding.todoTextField)
+            var emptyField: Boolean = false
             hideKeyboard(requireActivity())
-            view?.findNavController()?.navigate(NewTodoFragmentDirections.actionNavigationNewTodoToNavigationViewClass(arguments.classId))
+
+            for (f in fieldList) {
+                if (f.text.toString().trim().isEmpty()) {
+                    emptyField = true
+                }
+            }
+
+            if (!emptyField) {
+                val cal: Calendar = Calendar.getInstance()
+                cal.clear()
+                cal.set(
+                    binding.todoDatePicker.year,
+                    binding.todoDatePicker.month,
+                    binding.todoDatePicker.dayOfMonth
+                )
+                newTodoViewModel.onSave(
+                    binding.todoTypeSpinner.selectedItem.toString(),
+                    cal,
+                    binding.todoTextField.text.toString()
+                )
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "To-Do Saved",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+                view?.findNavController()?.navigate(NewTodoFragmentDirections.actionNavigationNewTodoToNavigationViewClass(arguments.classId))
+            } else {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "You cannot leave fields blank.",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
 
             true
         }
