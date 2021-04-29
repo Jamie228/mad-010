@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -53,19 +54,37 @@ class NewClassFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_menu_button -> {
+            val textFields = listOf<EditText>(binding.classroom, binding.setName, binding.subjectName, binding.yearGroup)
+            var emptyField: Boolean = false
             hideKeyboard(requireActivity())
-            newClassViewModel.onSave(
-                name = binding.subjectName.text.toString(),
-                room = binding.classroom.text.toString(),
-                set = binding.setName.text.toString(),
-                year = binding.yearGroup.text.toString()
-            )
-            Snackbar.make(
-                requireView(),
-                "Class Saved",
-                Snackbar.LENGTH_SHORT
-            ).show()
-            view?.findNavController()?.navigate(R.id.action_navigation_new_class_to_navigation_classes)
+
+            for (f in textFields) {
+                if (f.text.toString().trim().isEmpty()) {
+                    emptyField = true
+                }
+            }
+
+            if (!emptyField) {
+                newClassViewModel.onSave(
+                    name = binding.subjectName.text.toString(),
+                    room = binding.classroom.text.toString(),
+                    set = binding.setName.text.toString(),
+                    year = binding.yearGroup.text.toString()
+                )
+                Snackbar.make(
+                    requireView(),
+                    "Class Saved",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                view?.findNavController()?.navigate(R.id.action_navigation_new_class_to_navigation_classes)
+            } else {
+                Snackbar.make(
+                    requireView(),
+                    "You cannot leave fields blank.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
             true
         }
         else -> {

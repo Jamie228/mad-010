@@ -97,7 +97,7 @@ class NewEventFragment : Fragment() {
                 view?.findNavController()?.navigate(R.id.action_navigation_new_event_to_navigation_events)
 
             } else {
-                view?.let { Snackbar.make(it, "Please complete all fields", Snackbar.LENGTH_SHORT).show() }
+                view?.let { Snackbar.make(it, "You cannot leave fields blank.", Snackbar.LENGTH_SHORT).show() }
             }
             true
         }
