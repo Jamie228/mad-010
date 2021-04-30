@@ -617,6 +617,12 @@
     <string name="no_homework_due_today">No Homework Due Today!</string>
     <string name="no_events_today">No Events Today!</string>
     <string name="wellbeing">Wellbeing</string>
+    <string name="no_records">No Records Yet!</string>
+    <string name="rate_your_day">Rate Your Day</string>
+    <string name="what_went_well">What Went Well?</string>
+    <string name="what_could_be_improved">What Could Be Improved?</string>
+    <string name="rate_your_practice">Rate Your Practice</string>
+    <string name="any_other_comments_or_notes">Any Other Comments or Notes?</string>
 
     <string-array name="note_type_array">
         <item>To-Do</item>

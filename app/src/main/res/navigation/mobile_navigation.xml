@@ -93,9 +93,21 @@
         android:id="@+id/navigation_wellbeing"
         android:name="com.sid1804492.bottomnavtest.ui.wellbeing.WellbeingFragment"
         android:label="Wellbeing and Practice"
-        tools:layout="@layout/fragment_wellbeing" />
+        tools:layout="@layout/fragment_wellbeing" >
+        <action
+            android:id="@+id/action_navigation_wellbeing_to_navigation_new_wellbeing"
+            app:destination="@id/navigation_new_wellbeing" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_options"
         android:name="com.sid1804492.bottomnavtest.ui.options.OptionsFragment"
         android:label="OptionsFragment" />
+    <fragment
+        android:id="@+id/navigation_new_wellbeing"
+        android:name="com.sid1804492.bottomnavtest.ui.wellbeing.NewWellbeingFragment"
+        android:label="New Reflection" >
+        <action
+            android:id="@+id/action_navigation_new_wellbeing_to_navigation_wellbeing"
+            app:destination="@id/navigation_wellbeing" />
+    </fragment>
 </navigation>

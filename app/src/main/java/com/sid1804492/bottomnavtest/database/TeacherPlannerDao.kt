@@ -21,6 +21,9 @@ interface TeacherPlannerDao {
     @Insert
     suspend fun insertUserOp(userOp: UserOps)
 
+    @Insert
+    suspend fun insertWellbeing(wb: Wellbeing)
+
     //UPDATE STATEMENTS
     @Update
     suspend fun updateClass(schoolClass: SchoolClass)
@@ -33,6 +36,9 @@ interface TeacherPlannerDao {
 
     @Update
     suspend fun updateUserOp(userOp: UserOps)
+
+    @Update
+    suspend fun updateWellbeing(wb: Wellbeing)
 
     @Query("UPDATE event_table SET complete = 1 WHERE EventId = :id")
     suspend fun completeEvent(id: Long)
@@ -55,6 +61,9 @@ interface TeacherPlannerDao {
 
     @Delete
     suspend fun deleteTodo(todo: ToDo)
+
+    @Delete
+    suspend fun deleteWellbeing(wb: Wellbeing)
 
     @Query("DELETE FROM event_table WHERE event_date < :current_date")
     suspend fun deleteOldEvents(current_date: Long)
@@ -106,5 +115,11 @@ interface TeacherPlannerDao {
 
     @Query("SELECT COUNT(*) FROM todo_table WHERE todo_date = :today AND todo_type = 'Homework'")
     suspend fun getTodayHomeworkCount(today: Long) : Int
+
+//    @Query("SELECT * FROM wellbeing_table")
+//    suspend fun getAllWellbeing(): LiveData<List<Wellbeing>>
+//
+//    @Query("SELECT * FROM wellbeing_table ORDER BY date DESC LIMIT 7")
+//    suspend fun wellbeingRecentSeven(): LiveData<List<Wellbeing>>
 
 }

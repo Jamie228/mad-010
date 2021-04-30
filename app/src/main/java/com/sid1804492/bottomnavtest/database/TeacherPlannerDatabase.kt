@@ -12,7 +12,7 @@ import androidx.room.TypeConverters
     ToDo::class,
     UserOps::class,
     Wellbeing::class
-], version = 7, exportSchema = false)
+], version = 8, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class TeacherPlannerDatabase : RoomDatabase() {
 

@@ -24,5 +24,5 @@ data class Wellbeing (
     val improveOn: String,
 
     @ColumnInfo(name = "anything_else")
-    val anythingElse: String
+    val anythingElse: String?
 )

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.databinding.FragmentWellbeingBinding
@@ -29,6 +30,10 @@ class WellbeingFragment : Fragment() {
 
         binding.wellbeingViewModel = wellbeingViewModel
         binding.lifecycleOwner = this
+
+        binding.addWellbeingButton.setOnClickListener {
+            requireView().findNavController().navigate(R.id.action_navigation_wellbeing_to_navigation_new_wellbeing)
+        }
 
         return binding.root
 
