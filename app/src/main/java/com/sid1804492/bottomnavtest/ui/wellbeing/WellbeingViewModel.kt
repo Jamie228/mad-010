@@ -9,6 +9,6 @@ class WellbeingViewModel (
     application: Application
 ) : AndroidViewModel(application) {
 
-
+    val wellbeings = dao.getAllWellbeing()
 
 }

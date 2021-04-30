@@ -116,9 +116,9 @@ interface TeacherPlannerDao {
     @Query("SELECT COUNT(*) FROM todo_table WHERE todo_date = :today AND todo_type = 'Homework'")
     suspend fun getTodayHomeworkCount(today: Long) : Int
 
-//    @Query("SELECT * FROM wellbeing_table")
-//    suspend fun getAllWellbeing(): LiveData<List<Wellbeing>>
-//
+    @Query("SELECT * FROM wellbeing_table")
+    fun getAllWellbeing(): LiveData<List<Wellbeing>>
+
 //    @Query("SELECT * FROM wellbeing_table ORDER BY date DESC LIMIT 7")
 //    suspend fun wellbeingRecentSeven(): LiveData<List<Wellbeing>>
 

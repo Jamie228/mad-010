@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.sid1804492.bottomnavtest.R
@@ -34,6 +35,20 @@ class WellbeingFragment : Fragment() {
         binding.addWellbeingButton.setOnClickListener {
             requireView().findNavController().navigate(R.id.action_navigation_wellbeing_to_navigation_new_wellbeing)
         }
+
+        val adapter = WellbeingAdapter()
+        binding.recyclerView.adapter = adapter
+
+        wellbeingViewModel.wellbeings.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+                if (adapter.data.size == 0) {
+                    binding.noWellbeingText.visibility = View.VISIBLE
+                } else {
+                    binding.noWellbeingText.visibility = View.GONE
+                }
+            }
+        })
 
         return binding.root
 
