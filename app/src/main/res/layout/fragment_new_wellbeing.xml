@@ -52,13 +52,15 @@
 
             <EditText
                 android:id="@+id/wellbeingGoodText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="What Went Well?"
                 android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wellbeingGoodLabel" />
 
@@ -74,13 +76,15 @@
 
             <EditText
                 android:id="@+id/wellbeingBadText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="Improvements"
                 android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wellbeingBadLabel" />
 
@@ -96,13 +100,15 @@
 
             <EditText
                 android:id="@+id/wellbeingMoreText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="Comments"
                 android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wellbeingMoreLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>

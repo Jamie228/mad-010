@@ -1,6 +1,7 @@
 package com.sid1804492.bottomnavtest.ui.wellbeing
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.*
 import android.widget.EditText
 import androidx.fragment.app.Fragment
@@ -41,6 +42,13 @@ class NewWellbeingFragment : Fragment() {
         binding.newWellbeingViewModel = newWellbeingViewModel
         binding.lifecycleOwner = this
 
+        binding.wellbeingMoreText.inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+        binding.wellbeingMoreText.isSingleLine = false
+        binding.wellbeingGoodText.inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+        binding.wellbeingGoodText.isSingleLine = false
+        binding.wellbeingBadText.inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+        binding.wellbeingBadText.isSingleLine = false
+
         return binding.root
     }
 
@@ -57,7 +65,7 @@ class NewWellbeingFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.save_menu_button -> {
 
-            val textFields = listOf<EditText>(binding.wellbeingBadText, binding.wellbeingGoodText, binding.wellbeingMoreText)
+            val textFields = listOf<EditText>(binding.wellbeingBadText, binding.wellbeingGoodText)
             var emptyField: Boolean = false
             var ratingEmpty: Boolean = false
             hideKeyboard(requireActivity())

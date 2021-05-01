@@ -2,12 +2,14 @@ package com.sid1804492.bottomnavtest.ui.todo
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
@@ -39,6 +41,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
         val todoType: TextView = itemView.findViewById(R.id.todoTypeAndDate)
         val todoInfo: TextView = itemView.findViewById(R.id.todoDetails)
         val optionsButton: ImageButton = itemView.findViewById(R.id.todoOptionsButton)
+        val backg: ConstraintLayout = itemView.findViewById(R.id.todo_list_item_cl)
 
         fun bind(item: ToDo) {
             val res = itemView.context.resources
@@ -51,37 +54,111 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
             todoType.text = item.TodoType + " - " + ds
             todoInfo.text = item.TodoText
 
-            optionsButton.setOnClickListener { view ->
-                val popup: PopupMenu = PopupMenu(view.context, view)
-                popup.setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.delete_menu_item -> {
-                            val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
-                            builder.apply {
-                                setPositiveButton("Delete",
-                                    DialogInterface.OnClickListener { dialog, id ->
-                                        GlobalScope.launch {
-                                            delTodo(appDb, item)
-                                        }
-                                    }
-                                )
-                                setNegativeButton("Cancel",
-                                    DialogInterface.OnClickListener { dialog, id ->
-                                        //Cancel!
-                                    })
-                            }
-                            builder.setMessage("Do you want to delete this To-Do?").setTitle("Delete To-Do")
-                            builder.show()
-
-                            true
-                        }
-                        R.id.edit_menu_item ->
-                            true
-                    }
-                    true
+            if (item.TodoComplete) {
+                todoType.apply {
+                    paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
-                popup.inflate(R.menu.edit_event_menu)
-                popup.show()
+                todoInfo.apply {
+                    paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                }
+                optionsButton.setBackgroundColor(itemView.resources.getColor(R.color.inactive))
+                backg.setBackgroundColor(itemView.resources.getColor(R.color.inactive))
+
+                optionsButton.setOnClickListener { view ->
+                    val popup: PopupMenu = PopupMenu(view.context, view)
+                    popup.setOnMenuItemClickListener {
+                        when (it.itemId) {
+                            R.id.today_item_incomplete -> {
+                                GlobalScope.launch {
+                                    incompleteTodo(appDb, item.TodoId)
+                                }
+                                todoType.apply {
+                                    paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                }
+                                todoInfo.apply {
+                                    paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                }
+                                true
+                            }
+                            R.id.today_item_delete_two -> {
+                                val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                                builder.apply {
+                                    setPositiveButton("Delete",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                            GlobalScope.launch {
+                                                delTodo(appDb, item)
+                                            }
+                                        }
+                                    )
+                                    setNegativeButton("Cancel",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                            //Cancel!
+                                        })
+                                }
+                                builder.setMessage("Do you want to delete this To-Do?").setTitle("Delete To-Do")
+                                builder.show()
+
+                                true
+                            }
+                            R.id.today_item_edit_two ->
+                                true
+                        }
+                        true
+                    }
+                    popup.inflate(R.menu.today_item_menu_complete)
+                    popup.show()
+                }
+            } else {
+                todoInfo.paintFlags = 0
+                todoType.paintFlags = 0
+                backg.setBackgroundColor(itemView.resources.getColor(R.color.white))
+                optionsButton.setBackgroundColor(itemView.resources.getColor(R.color.white))
+
+                optionsButton.setOnClickListener { view ->
+                    val popup: PopupMenu = PopupMenu(view.context, view)
+                    popup.setOnMenuItemClickListener {
+                        when (it.itemId) {
+                            R.id.today_item_complete -> {
+                                GlobalScope.launch {
+                                    completeTodo(appDb, item.TodoId)
+                                }
+                                todoType.apply {
+                                    paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                }
+                                todoInfo.apply {
+                                    paintFlags = paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                }
+                                true
+                            }
+                            R.id.today_item_delete -> {
+                                val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                                builder.apply {
+                                    setPositiveButton("Delete",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                            GlobalScope.launch {
+                                                delTodo(appDb, item)
+                                            }
+                                        }
+                                    )
+                                    setNegativeButton("Cancel",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                            //Cancel!
+                                        })
+                                }
+                                builder.setMessage("Do you want to delete this To-Do?")
+                                    .setTitle("Delete To-Do")
+                                builder.show()
+
+                                true
+                            }
+                            R.id.today_item_edit ->
+                                true
+                        }
+                        true
+                    }
+                    popup.inflate(R.menu.today_item_menu)
+                    popup.show()
+                }
             }
         }
 
@@ -98,6 +175,14 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
         private suspend fun delTodo(db: TeacherPlannerDatabase, todo: ToDo) {
             db.teacherPlannerDao.deleteTodo(todo)
+        }
+
+        private suspend fun incompleteTodo(db:TeacherPlannerDatabase, id: Long) {
+            db.teacherPlannerDao.incompleteTodo(id)
+        }
+
+        private  suspend fun completeTodo(db: TeacherPlannerDatabase, id: Long) {
+            db.teacherPlannerDao.completeTodo(id)
         }
 
     }

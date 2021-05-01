@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.databinding.FragmentWellbeingBinding
+import kotlin.math.roundToInt
 
 class WellbeingFragment : Fragment() {
 
@@ -46,6 +47,29 @@ class WellbeingFragment : Fragment() {
                     binding.noWellbeingText.visibility = View.VISIBLE
                 } else {
                     binding.noWellbeingText.visibility = View.GONE
+                    var total = 0.0f
+                    for (x in it) {
+                        total += x.rating
+                    }
+                    val avg = (total/it.size).roundToInt()
+                    binding.averageText.text = avg.toString()
+                    when(avg) {
+                        1 -> {
+                          binding.averageText.setTextColor(resources.getColor(R.color.red))
+                        }
+                        2 -> {
+                            binding.averageText.setTextColor(resources.getColor(R.color.orange))
+                        }
+                        3 -> {
+                            binding.averageText.setTextColor(resources.getColor(R.color.amber))
+                        }
+                        4 -> {
+                            binding.averageText.setTextColor(resources.getColor(R.color.yellow))
+                        }
+                        5 -> {
+                            binding.averageText.setTextColor(resources.getColor(R.color.green))
+                        }
+                    }
                 }
             }
         })

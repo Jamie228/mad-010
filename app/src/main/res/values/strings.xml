@@ -623,6 +623,8 @@
     <string name="what_could_be_improved">What Could Be Improved?</string>
     <string name="rate_your_practice">Rate Your Practice</string>
     <string name="any_other_comments_or_notes">Any Other Comments or Notes?</string>
+    <string name="average_recent_rating">Average Recent Rating</string>
+    <string name="average_rating">Average Rating</string>
 
     <string-array name="note_type_array">
         <item>To-Do</item>

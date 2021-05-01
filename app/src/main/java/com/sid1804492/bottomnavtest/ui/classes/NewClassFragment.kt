@@ -2,6 +2,7 @@ package com.sid1804492.bottomnavtest.ui.classes
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
@@ -35,6 +36,15 @@ class NewClassFragment : Fragment() {
         val viewModelFactory = NewClassViewModelFactory(dataSource, application)
 
         newClassViewModel = ViewModelProvider(this, viewModelFactory).get(NewClassViewModel::class.java)
+
+        binding.setName.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
+        binding.setName.isSingleLine = true
+        binding.yearGroup.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
+        binding.yearGroup.isSingleLine = true
+        binding.subjectName.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
+        binding.subjectName.isSingleLine = true
+        binding.classroom.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
+        binding.classroom.isSingleLine = true
 
         binding.newClassViewModel = newClassViewModel
         binding.lifecycleOwner = this
