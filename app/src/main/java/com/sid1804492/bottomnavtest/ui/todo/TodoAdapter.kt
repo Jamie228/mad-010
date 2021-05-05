@@ -10,10 +10,12 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.database.ToDo
+import com.sid1804492.bottomnavtest.ui.classes.ViewClassFragmentDirections
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -100,8 +102,15 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
                                 true
                             }
-                            R.id.today_item_edit_two ->
+                            R.id.today_item_edit_two -> {
+                                view.findNavController().navigate(
+                                    ViewClassFragmentDirections.actionNavigationViewClassToNavigationEditTodo(
+                                        item.TodoId,
+                                        "class"
+                                    )
+                                )
                                 true
+                            }
                         }
                         true
                     }
@@ -151,8 +160,15 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
                                 true
                             }
-                            R.id.today_item_edit ->
+                            R.id.today_item_edit -> {
+                                view.findNavController().navigate(
+                                    ViewClassFragmentDirections.actionNavigationViewClassToNavigationEditTodo(
+                                        item.TodoId,
+                                        "class"
+                                    )
+                                )
                                 true
+                            }
                         }
                         true
                     }

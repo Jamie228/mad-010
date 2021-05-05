@@ -17,13 +17,13 @@ data class ToDo (
     val ClassId: Long,
 
     @ColumnInfo(name = "todo_type")
-    val TodoType: String,
+    var TodoType: String,
 
     @ColumnInfo(name = "todo_date")
-    val TodoDate: Calendar,
+    var TodoDate: Calendar,
 
     @ColumnInfo(name = "todo_text")
-    val TodoText: String,
+    var TodoText: String,
 
     @ColumnInfo(name = "todo_complete")
     val TodoComplete: Boolean

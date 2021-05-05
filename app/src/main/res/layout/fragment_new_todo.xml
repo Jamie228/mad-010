@@ -11,10 +11,6 @@
             type="com.sid1804492.bottomnavtest.ui.todo.NewTodoViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:textSize="@dimen/label_font"
                     android:text="@string/to_do_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -54,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
+                    android:textSize="@dimen/label_font"
                     android:text="@string/due_date"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/todoTypeSpinner" />
@@ -75,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:textSize="@dimen/label_font"
                     android:text="Text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/todoDatePicker" />
@@ -96,7 +95,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
