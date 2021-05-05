@@ -9,8 +9,6 @@
     <string name="new_event_title">Create New Event</string>
     <string name="create_new_class">Create New Class</string>
     <string name="set_class_name">Set/Class Name</string>
-    <string name="subject_name">Subject Name</string>
-    <string name="year_group">Year Group</string>
     <string name="save">Save</string>
     <string name="room_hint">Room</string>
     <string name="event_name">Event Name</string>
@@ -625,6 +623,10 @@
     <string name="any_other_comments_or_notes">Any Other Comments or Notes?</string>
     <string name="average_recent_rating">Average Recent Rating</string>
     <string name="average_rating">Average Rating</string>
+    <string name="set_name">Set Name</string>
+    <string name="subject_name">Subject Name</string>
+    <string name="year_group">Year Group</string>
+    <string name="room">Room</string>
 
     <string-array name="note_type_array">
         <item>To-Do</item>

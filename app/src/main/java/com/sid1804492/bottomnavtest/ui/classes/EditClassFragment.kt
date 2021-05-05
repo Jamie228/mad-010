@@ -10,10 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.SchoolClass
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
 import com.sid1804492.bottomnavtest.databinding.FragmentEditClassBinding
+import com.sid1804492.bottomnavtest.emptyFields
 import com.sid1804492.bottomnavtest.hideKeyboard
 
 class EditClassFragment : Fragment() {
@@ -22,6 +24,7 @@ class EditClassFragment : Fragment() {
     private lateinit var arguments: EditClassFragmentArgs
     private lateinit var curClass: SchoolClass
     private lateinit var editClassViewModel: EditClassViewModel
+    private lateinit var inputs: List<EditText>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +44,7 @@ class EditClassFragment : Fragment() {
         binding.editClassViewModel = editClassViewModel
         binding.lifecycleOwner = this
 
-        val inputs = listOf<EditText>(binding.editClassroom, binding.editSetName, binding.editSubjectName, binding.editYearGroup)
+        inputs = listOf(binding.editClassroom, binding.editSetName, binding.editSubjectName, binding.editYearGroup)
         for (f in inputs) {
             f.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
             f.isSingleLine = true
@@ -73,13 +76,20 @@ class EditClassFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
         R.id.save_menu_button -> {
-            curClass.YearGroup = binding.editYearGroup.text.toString()
-            curClass.SubjectName = binding.editSubjectName.text.toString()
-            curClass.SetName = binding.editSetName.text.toString()
-            curClass.Room = binding.editClassroom.text.toString()
-            hideKeyboard(requireActivity())
-            editClassViewModel.onUpdate(curClass)
-            requireView().findNavController().navigate(R.id.action_navigation_edit_class_to_navigation_classes)
+            if (!emptyFields(inputs)) {
+                curClass.YearGroup = binding.editYearGroup.text.toString()
+                curClass.SubjectName = binding.editSubjectName.text.toString()
+                curClass.SetName = binding.editSetName.text.toString()
+                curClass.Room = binding.editClassroom.text.toString()
+                hideKeyboard(requireActivity())
+                editClassViewModel.onUpdate(curClass)
+                Snackbar.make(requireView(), binding.editSetName.text.toString() + " Updated", Snackbar.LENGTH_SHORT).show()
+                requireView().findNavController().navigate(R.id.action_navigation_edit_class_to_navigation_classes)
+            } else {
+                Snackbar.make(requireView(),
+                "Fields Cannot Be Empty",
+                Snackbar.LENGTH_SHORT).show()
+            }
             true
         }
         else -> {

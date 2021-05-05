@@ -25,15 +25,12 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
-                android:hint="@string/set_class_name"
                 android:importantForAutofill="no"
                 android:inputType=""
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <EditText
                 android:id="@+id/subjectName"
@@ -42,13 +39,12 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
-                android:hint="@string/subject_name"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/setName" />
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <EditText
                 android:id="@+id/yearGroup"
@@ -57,11 +53,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
-                android:hint="@string/year_group"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subjectName" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <EditText
                 android:id="@+id/classroom"
@@ -70,9 +65,48 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
-                android:hint="@string/room_hint"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/set_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/subject_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/setName" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/year_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subjectName" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/room"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/yearGroup" />
 

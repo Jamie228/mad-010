@@ -21,3 +21,19 @@ fun hideKeyboard(activity: Activity) {
         )
     }
 }
+
+/**
+ * Checks if any given text fields are blank
+ *
+ * @param fields The list of EditText
+ * @return True if any field is blank. Otherwise false
+ * @author 1804492 / P110103851
+ */
+fun emptyFields(fields: List<EditText>) : Boolean {
+    for (f in fields) {
+        if (f.text.toString().trim().isEmpty()) {
+            return true
+        }
+    }
+    return false
+}
