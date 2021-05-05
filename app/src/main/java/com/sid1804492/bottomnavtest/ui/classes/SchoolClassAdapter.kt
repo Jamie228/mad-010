@@ -1,5 +1,6 @@
 package com.sid1804492.bottomnavtest.ui.classes
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.sid1804492.bottomnavtest.R
 import com.sid1804492.bottomnavtest.database.SchoolClass
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDatabase
+import com.sid1804492.bottomnavtest.hideKeyboard
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -75,6 +77,9 @@ class SchoolClassAdapter : RecyclerView.Adapter<SchoolClassAdapter.ViewHolder>()
                             true
                         }
                         R.id.edit_menu_item -> {
+                            view.findNavController().navigate(
+                                ClassesFragmentDirections.actionNavigationClassesToNavigationEditClass(item.ClassId)
+                            )
                             true
                         }
                     }

@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_classes_to_navigation_view_class"
             app:destination="@id/navigation_view_class" />
+        <action
+            android:id="@+id/action_navigation_classes_to_navigation_edit_class"
+            app:destination="@id/navigation_edit_class" />
     </fragment>
 
     <fragment
@@ -109,5 +112,18 @@
         <action
             android:id="@+id/action_navigation_new_wellbeing_to_navigation_wellbeing"
             app:destination="@id/navigation_wellbeing" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_edit_class"
+        android:name="com.sid1804492.bottomnavtest.ui.classes.EditClassFragment"
+        android:label="Edit Class"
+        tools:layout="@layout/fragment_edit_class">
+        <argument
+            android:name="class_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_navigation_edit_class_to_navigation_classes"
+            app:destination="@id/navigation_classes"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

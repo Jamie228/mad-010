@@ -42,6 +42,7 @@ class NewWellbeingFragment : Fragment() {
         binding.newWellbeingViewModel = newWellbeingViewModel
         binding.lifecycleOwner = this
 
+        //Capitalise first letter of sentences when user types. Set to multiline.
         binding.wellbeingMoreText.inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         binding.wellbeingMoreText.isSingleLine = false
         binding.wellbeingGoodText.inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
@@ -70,17 +71,19 @@ class NewWellbeingFragment : Fragment() {
             var ratingEmpty: Boolean = false
             hideKeyboard(requireActivity())
 
+            //Iterate through all text fields and check if empty
             for (f in textFields) {
                 if (f.text.toString().trim().isEmpty()) {
                     emptyField = true
                 }
             }
+            //Check if rating blank
             if (binding.wellbeingRating.rating == 0.0f) {
                 ratingEmpty = true
             }
 
             if (!emptyField && !ratingEmpty) {
-
+                //Create calendar, clear and reset to remove time param.
                 val c = Calendar.getInstance()
                 val y = c.get(Calendar.YEAR)
                 val m = c.get(Calendar.MONTH)
@@ -109,7 +112,6 @@ class NewWellbeingFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
-
             true
         }
         else -> {

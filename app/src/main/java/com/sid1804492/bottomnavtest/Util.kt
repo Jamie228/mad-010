@@ -2,7 +2,9 @@ package com.sid1804492.bottomnavtest
 
 import android.app.Activity
 import android.content.Context
+import android.text.InputType
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 
 /**
  * Hides the keyboard from view if present.
