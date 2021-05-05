@@ -85,7 +85,7 @@ interface TeacherPlannerDao {
     suspend fun getClass(key: Long): SchoolClass?
 
     @Query("SELECT * FROM event_table WHERE EventId = :key")
-    suspend fun getEvent(key: Int): Event?
+    suspend fun getEvent(key: Long): Event?
 
     @Query("SELECT * FROM classes_table")
     fun getAllClasses(): LiveData<List<SchoolClass>>
