@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:textSize="@dimen/label_font"
                 android:text="@string/rate_your_practice"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:textSize="@dimen/label_font"
                 android:text="@string/what_went_well"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wellbeingRating" />
@@ -70,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:textSize="@dimen/label_font"
                 android:text="@string/what_could_be_improved"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wellbeingGoodText" />
@@ -94,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:textSize="@dimen/label_font"
                 android:text="@string/any_other_comments_or_notes"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wellbeingBadText" />
