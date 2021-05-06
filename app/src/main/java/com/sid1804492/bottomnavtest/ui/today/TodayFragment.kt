@@ -137,7 +137,7 @@ class TodayFragment : Fragment() {
                 else -> {
                     tab.text = "Events"
                     todayViewModel.eventNo.observe(viewLifecycleOwner, Observer {
-                        if (it!! > 0) {
+                        if (it > 0) {
                             tab.orCreateBadge.number = it
                         } else {
                             if (tab.badge != null) {

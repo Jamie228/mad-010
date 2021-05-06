@@ -18,6 +18,8 @@ import java.util.*
 class TodayViewModel(val database: TeacherPlannerDao, application: Application) :
     AndroidViewModel(application) {
 
+    private lateinit var c: Calendar
+
     private val _currentTime = MutableLiveData<String>().apply {
         value = SimpleDateFormat("EEEE d MMMM", java.util.Locale.getDefault()).format(
             java.util.Date()
@@ -26,34 +28,22 @@ class TodayViewModel(val database: TeacherPlannerDao, application: Application) 
 
     val locOp = MutableLiveData<UserOps?>()
 
-    val todoNo = MutableLiveData<Int>()
-    val homeworkNo = MutableLiveData<Int>()
-    val eventNo = MutableLiveData<Int>()
 
     init {
-        initLocSet()
-        onGetCounts()
-    }
-
-    val currentTime: LiveData<String> = _currentTime
-
-    private fun onGetCounts() {
-        val c = Calendar.getInstance()
+        c = Calendar.getInstance()
         val d = c.get(Calendar.DAY_OF_MONTH)
         val m = c.get(Calendar.MONTH)
         val y = c.get(Calendar.YEAR)
         c.clear()
         c.set(y, m, d)
-        viewModelScope.launch {
-            getCounts(c)
-        }
+        initLocSet()
     }
 
-    private suspend fun getCounts(c: Calendar) {
-        eventNo.value = database.getTodayEventCount(c.timeInMillis)
-        homeworkNo.value = database.getTodayHomeworkCount(c.timeInMillis)
-        todoNo.value = database.getTodayTodoCount(c.timeInMillis)
-    }
+    val eventNo = database.getTodayEventCount(c.timeInMillis)
+    val todoNo = database.getTodayTodoCount(c.timeInMillis)
+    val homeworkNo = database.getTodayHomeworkCount(c.timeInMillis)
+
+    val currentTime: LiveData<String> = _currentTime
 
     private fun initLocSet() {
        viewModelScope.launch{
