@@ -28,13 +28,15 @@ class WellbeingFragment : Fragment() {
         val application = requireActivity().application
         val datasource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
         val viewModelFactory = WellbeingViewModelFactory(datasource, application)
-        val wellbeingViewModel = ViewModelProvider(this, viewModelFactory).get(WellbeingViewModel::class.java)
+        val wellbeingViewModel =
+            ViewModelProvider(this, viewModelFactory).get(WellbeingViewModel::class.java)
 
         binding.wellbeingViewModel = wellbeingViewModel
         binding.lifecycleOwner = this
 
         binding.addWellbeingButton.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_navigation_wellbeing_to_navigation_new_wellbeing)
+            requireView().findNavController()
+                .navigate(R.id.action_navigation_wellbeing_to_navigation_new_wellbeing)
         }
 
         val adapter = WellbeingAdapter()
@@ -49,15 +51,17 @@ class WellbeingFragment : Fragment() {
                 } else {
                     binding.noWellbeingText.visibility = View.GONE
                     binding.averageLabel.visibility = View.VISIBLE
+                    //Calculate mean and round to integer
                     var total = 0.0f
                     for (x in it) {
                         total += x.rating
                     }
-                    val avg = (total/it.size).roundToInt()
+                    val avg = (total / it.size).roundToInt()
                     binding.averageText.text = avg.toString()
-                    when(avg) {
+                    //Set colour from average
+                    when (avg) {
                         1 -> {
-                          binding.averageText.setTextColor(resources.getColor(R.color.red))
+                            binding.averageText.setTextColor(resources.getColor(R.color.red))
                         }
                         2 -> {
                             binding.averageText.setTextColor(resources.getColor(R.color.orange))

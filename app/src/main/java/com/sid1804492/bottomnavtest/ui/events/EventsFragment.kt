@@ -21,26 +21,28 @@ class EventsFragment : Fragment() {
     private lateinit var eventsViewModel: EventsViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         val binding: FragmentEventsBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_events, container, false)
+            inflater, R.layout.fragment_events, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val dataSource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
         val viewModelFactory = EventsViewModelFactory(dataSource, application)
 
         eventsViewModel =
-                ViewModelProvider(this, viewModelFactory).get(EventsViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(EventsViewModel::class.java)
 
         binding.eventsViewModel = eventsViewModel
         binding.lifecycleOwner = this
 
-        binding.newEventButton.setOnClickListener{ view: View ->
-            view.findNavController().navigate(R.id.action_navigation_notifications_to_fragment_new_event)
+        binding.newEventButton.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(R.id.action_navigation_notifications_to_fragment_new_event)
         }
 
         val adapter = EventAdapter()
@@ -49,7 +51,7 @@ class EventsFragment : Fragment() {
         eventsViewModel.events.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
-                if(adapter.data.size == 0) {
+                if (adapter.data.size == 0) {
                     binding.noEventsText.visibility = View.VISIBLE
                 } else {
                     binding.noEventsText.visibility = View.GONE

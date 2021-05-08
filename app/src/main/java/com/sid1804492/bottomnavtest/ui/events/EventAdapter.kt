@@ -149,7 +149,10 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
                             }
                             R.id.today_item_edit -> {
                                 view.findNavController().navigate(
-                                    EventsFragmentDirections.actionNavigationEventsToNavigationEditEvent(item.EventId, "event")
+                                    EventsFragmentDirections.actionNavigationEventsToNavigationEditEvent(
+                                        item.EventId,
+                                        "event"
+                                    )
                                 )
                                 true
                             }

@@ -24,7 +24,7 @@ class EditEventViewModel(
         }
     }
 
-    private suspend fun getEvent(id: Long) : Event? {
+    private suspend fun getEvent(id: Long): Event? {
         return dataSource.getEvent(id)
     }
 

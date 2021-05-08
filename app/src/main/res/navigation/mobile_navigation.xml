@@ -112,6 +112,12 @@
         <action
             android:id="@+id/action_navigation_wellbeing_to_navigation_new_wellbeing"
             app:destination="@id/navigation_new_wellbeing" />
+        <action
+            android:id="@+id/action_navigation_wellbeing_to_navigation_view_wellbeing"
+            app:destination="@id/navigation_view_wellbeing" />
+        <action
+            android:id="@+id/action_navigation_wellbeing_to_navigation_edit_wellbeing"
+            app:destination="@id/navigation_edit_wellbeing" />
     </fragment>
     <fragment
         android:id="@+id/navigation_options"
@@ -173,5 +179,26 @@
         <action
             android:id="@+id/action_navigation_edit_todo_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_view_wellbeing"
+        android:name="com.sid1804492.bottomnavtest.ui.wellbeing.ViewWellbeingFragment"
+        android:label="View Reflection"
+        tools:layout="@layout/fragment_view_wellbeing">
+        <argument
+            android:name="wbId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_edit_wellbeing"
+        android:name="com.sid1804492.bottomnavtest.ui.wellbeing.EditWellbeingFragment"
+        android:label="Edit Reflection"
+        tools:layout="@layout/fragment_edit_wellbeing" >
+        <action
+            android:id="@+id/action_navigation_edit_wellbeing_to_navigation_wellbeing"
+            app:destination="@id/navigation_wellbeing" />
+        <argument
+            android:name="wbId"
+            app:argType="long" />
     </fragment>
 </navigation>

@@ -24,7 +24,7 @@ class EditTodoViewModel(
         }
     }
 
-    private suspend fun getTodo (id: Long) : ToDo? {
+    private suspend fun getTodo(id: Long): ToDo? {
         return dataSource.getTodo(id)
     }
 

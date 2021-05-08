@@ -97,7 +97,8 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
                                             //Cancel!
                                         })
                                 }
-                                builder.setMessage("Do you want to delete this To-Do?").setTitle("Delete To-Do")
+                                builder.setMessage("Do you want to delete this To-Do?")
+                                    .setTitle("Delete To-Do")
                                 builder.show()
 
                                 true
@@ -193,11 +194,11 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
             db.teacherPlannerDao.deleteTodo(todo)
         }
 
-        private suspend fun incompleteTodo(db:TeacherPlannerDatabase, id: Long) {
+        private suspend fun incompleteTodo(db: TeacherPlannerDatabase, id: Long) {
             db.teacherPlannerDao.incompleteTodo(id)
         }
 
-        private  suspend fun completeTodo(db: TeacherPlannerDatabase, id: Long) {
+        private suspend fun completeTodo(db: TeacherPlannerDatabase, id: Long) {
             db.teacherPlannerDao.completeTodo(id)
         }
 

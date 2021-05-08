@@ -9,7 +9,7 @@ import com.sid1804492.bottomnavtest.database.ToDo
 import kotlinx.coroutines.launch
 import java.util.*
 
-class NewTodoViewModel(private val class_id: Long, val database: TeacherPlannerDao): ViewModel() {
+class NewTodoViewModel(private val class_id: Long, val database: TeacherPlannerDao) : ViewModel() {
 
     private val calendar: Calendar = Calendar.getInstance();
     private val year = calendar.get(Calendar.YEAR)
@@ -25,7 +25,13 @@ class NewTodoViewModel(private val class_id: Long, val database: TeacherPlannerD
 
     fun onSave(todo_type: String, todo_date: Calendar, todo_text: String) {
         viewModelScope.launch {
-            val newTodo: ToDo = ToDo(ClassId = class_id, TodoType = todo_type, TodoDate = todo_date, TodoText = todo_text, TodoComplete = false)
+            val newTodo: ToDo = ToDo(
+                ClassId = class_id,
+                TodoType = todo_type,
+                TodoDate = todo_date,
+                TodoText = todo_text,
+                TodoComplete = false
+            )
             insert(newTodo)
         }
     }

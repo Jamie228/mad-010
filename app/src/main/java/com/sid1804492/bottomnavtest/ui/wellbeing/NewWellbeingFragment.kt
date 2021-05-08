@@ -89,7 +89,7 @@ class NewWellbeingFragment : Fragment() {
                 val m = c.get(Calendar.MONTH)
                 val d = c.get(Calendar.DAY_OF_MONTH)
                 c.clear()
-                c.set(y,m,d)
+                c.set(y, m, d)
 
                 val newWb = Wellbeing(
                     date = c,
@@ -104,7 +104,8 @@ class NewWellbeingFragment : Fragment() {
                     "Reflection Saved.",
                     Snackbar.LENGTH_SHORT
                 ).show()
-                requireView().findNavController().navigate(R.id.action_navigation_new_wellbeing_to_navigation_wellbeing)
+                requireView().findNavController()
+                    .navigate(R.id.action_navigation_new_wellbeing_to_navigation_wellbeing)
             } else {
                 Snackbar.make(
                     requireView(),

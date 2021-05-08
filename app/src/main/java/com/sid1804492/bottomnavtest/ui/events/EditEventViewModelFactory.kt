@@ -3,7 +3,6 @@ package com.sid1804492.bottomnavtest.ui.events
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
-import com.sid1804492.bottomnavtest.ui.classes.EditClassViewModel
 
 class EditEventViewModelFactory(
     private val eventId: Long,

@@ -77,13 +77,17 @@ class EditEventFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.save_menu_button -> {
-            if(!emptyFields(listOf(binding.editEventName, binding.editEventText))) {
+            if (!emptyFields(listOf(binding.editEventName, binding.editEventText))) {
                 hideKeyboard(requireActivity())
                 event.EventText = binding.editEventText.text.toString()
                 event.EventName = binding.editEventName.text.toString()
                 val c = Calendar.getInstance()
                 c.clear()
-                c.set(binding.editEventDatePicker.year, binding.editEventDatePicker.month, binding.editEventDatePicker.dayOfMonth)
+                c.set(
+                    binding.editEventDatePicker.year,
+                    binding.editEventDatePicker.month,
+                    binding.editEventDatePicker.dayOfMonth
+                )
                 event.EventDate = c
                 editEventViewModel.onUpdate(event)
                 Snackbar.make(

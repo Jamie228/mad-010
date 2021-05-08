@@ -21,11 +21,6 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- * Use the [NewEventFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NewEventFragment : Fragment() {
 
     private lateinit var newEventViewModel: NewEventViewModel
@@ -37,7 +32,8 @@ class NewEventFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_new_event, container, false)
+            inflater, R.layout.fragment_new_event, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val dataSource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
@@ -70,7 +66,7 @@ class NewEventFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_menu_button -> {
             val editTextList = listOf<EditText>(binding.eventName, binding.eventText)
             hideKeyboard(requireActivity())
@@ -85,7 +81,11 @@ class NewEventFragment : Fragment() {
             if (!emptyField) {
                 val calendar: Calendar = Calendar.getInstance()
                 calendar.clear()
-                calendar.set(binding.eventDatePicker.year, binding.eventDatePicker.month, binding.eventDatePicker.dayOfMonth)
+                calendar.set(
+                    binding.eventDatePicker.year,
+                    binding.eventDatePicker.month,
+                    binding.eventDatePicker.dayOfMonth
+                )
 
                 newEventViewModel.onSave(
                     binding.eventName.text.toString(),
@@ -94,10 +94,17 @@ class NewEventFragment : Fragment() {
                 )
 
                 view?.let { Snackbar.make(it, "Event Saved", Snackbar.LENGTH_SHORT).show() }
-                view?.findNavController()?.navigate(R.id.action_navigation_new_event_to_navigation_events)
+                view?.findNavController()
+                    ?.navigate(R.id.action_navigation_new_event_to_navigation_events)
 
             } else {
-                view?.let { Snackbar.make(it, "You cannot leave fields blank.", Snackbar.LENGTH_SHORT).show() }
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "You cannot leave fields blank.",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             }
             true
         }

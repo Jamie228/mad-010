@@ -36,9 +36,10 @@ class NewTodoFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_new_todo, container, false)
+            inflater, R.layout.fragment_new_todo, container, false
+        )
 
-        val application = requireNotNull(this.activity).application
+        val application = requireActivity().application
         arguments = NewTodoFragmentArgs.fromBundle(requireArguments())
 
         val dataSource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
@@ -52,9 +53,12 @@ class NewTodoFragment : Fragment() {
         binding.todoTextField.inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         binding.todoTextField.isSingleLine = false
 
+        //Setup spinner with string array
         val spinner: Spinner = binding.todoTypeSpinner
-        ArrayAdapter.createFromResource(this.requireContext(),
-        R.array.note_type_array, android.R.layout.simple_spinner_item).also { adapter ->
+        ArrayAdapter.createFromResource(
+            this.requireContext(),
+            R.array.note_type_array, android.R.layout.simple_spinner_item
+        ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
@@ -81,7 +85,6 @@ class NewTodoFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_menu_button -> {
-
             val fieldList = listOf<EditText>(binding.todoTextField)
             var emptyField: Boolean = false
             hideKeyboard(requireActivity())
@@ -112,7 +115,9 @@ class NewTodoFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
-                view?.findNavController()?.navigate(NewTodoFragmentDirections.actionNavigationNewTodoToNavigationViewClass(arguments.classId))
+                view?.findNavController()?.navigate(
+                    NewTodoFragmentDirections.actionNavigationNewTodoToNavigationViewClass(arguments.classId)
+                )
             } else {
                 view?.let {
                     Snackbar.make(

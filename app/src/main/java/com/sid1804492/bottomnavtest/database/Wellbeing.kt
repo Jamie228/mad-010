@@ -15,14 +15,14 @@ data class Wellbeing(
     val date: Calendar,
 
     @ColumnInfo(name = "rating")
-    val rating: Int,
+    var rating: Int,
 
     @ColumnInfo(name = "went_well")
-    val wentWell: String,
+    var wentWell: String,
 
     @ColumnInfo(name = "improve_on")
-    val improveOn: String,
+    var improveOn: String,
 
     @ColumnInfo(name = "anything_else")
-    val anythingElse: String?
+    var anythingElse: String?
 )

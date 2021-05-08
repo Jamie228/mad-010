@@ -13,7 +13,7 @@ class WellbeingViewModelFactory(
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(WellbeingViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(WellbeingViewModel::class.java)) {
             return WellbeingViewModel(dao, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")

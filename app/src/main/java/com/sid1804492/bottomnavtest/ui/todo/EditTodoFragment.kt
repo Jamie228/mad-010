@@ -111,7 +111,8 @@ class EditTodoFragment : Fragment() {
                         EditTodoFragmentDirections.actionNavigationEditTodoToNavigationViewClass(td.ClassId)
                     )
                 } else {
-                    requireView().findNavController().navigate(R.id.action_navigation_edit_todo_to_navigation_home)
+                    requireView().findNavController()
+                        .navigate(R.id.action_navigation_edit_todo_to_navigation_home)
                 }
             } else {
                 Snackbar.make(

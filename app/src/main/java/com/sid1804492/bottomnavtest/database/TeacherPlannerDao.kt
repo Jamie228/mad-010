@@ -77,6 +77,9 @@ interface TeacherPlannerDao {
     @Query("DELETE FROM event_table WHERE EventId = :id")
     suspend fun deleteEventWithId(id: Long)
 
+    @Query("DELETE FROM wellbeing_table WHERE WellbeingId = :id")
+    suspend fun deleteWellbeingWithId(id: Long)
+
     //GET STATEMENTS
     @Query("SELECT * FROM user_options WHERE name = 'LOCATION'")
     suspend fun getLocOp(): UserOps?
@@ -122,4 +125,6 @@ interface TeacherPlannerDao {
     @Query("SELECT * FROM todo_table WHERE TodoId = :key")
     suspend fun getTodo(key: Long) : ToDo?
 
+    @Query("SELECT * FROM wellbeing_table WHERE WellbeingId = :key")
+    suspend fun getWellbeing(key: Long) : Wellbeing
 }

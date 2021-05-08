@@ -628,6 +628,7 @@
     <string name="year_group">Year Group</string>
     <string name="room">Room</string>
     <string name="event_details">Event Details</string>
+    <string name="score">Score</string>
 
     <string-array name="note_type_array">
         <item>To-Do</item>

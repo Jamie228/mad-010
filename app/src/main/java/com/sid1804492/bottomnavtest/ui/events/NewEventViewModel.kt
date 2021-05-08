@@ -11,7 +11,7 @@ import java.util.*
 class NewEventViewModel(
     val database: TeacherPlannerDao,
     application: Application
-): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
     val calendar: Calendar = Calendar.getInstance();
     val year = calendar.get(Calendar.YEAR)
@@ -28,7 +28,8 @@ class NewEventViewModel(
     fun onSave(eventName: String, eventDate: Calendar, eventText: String) {
         viewModelScope.launch {
             Log.d("NEVM - Selected Date", eventDate.timeInMillis.toString())
-            val newEvent = Event(EventName = eventName, EventDate = eventDate, EventText = eventText)
+            val newEvent =
+                Event(EventName = eventName, EventDate = eventDate, EventText = eventText)
             insert(newEvent)
         }
     }
