@@ -44,7 +44,12 @@ class EditClassFragment : Fragment() {
         binding.editClassViewModel = editClassViewModel
         binding.lifecycleOwner = this
 
-        inputs = listOf(binding.editClassroom, binding.editSetName, binding.editSubjectName, binding.editYearGroup)
+        inputs = listOf(
+            binding.editClassroom,
+            binding.editSetName,
+            binding.editSubjectName,
+            binding.editYearGroup
+        )
         for (f in inputs) {
             f.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
             f.isSingleLine = true
@@ -74,7 +79,7 @@ class EditClassFragment : Fragment() {
         inflater.inflate(R.menu.save_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.save_menu_button -> {
             if (!emptyFields(inputs)) {
                 curClass.YearGroup = binding.editYearGroup.text.toString()
@@ -83,12 +88,19 @@ class EditClassFragment : Fragment() {
                 curClass.Room = binding.editClassroom.text.toString()
                 hideKeyboard(requireActivity())
                 editClassViewModel.onUpdate(curClass)
-                Snackbar.make(requireView(), binding.editSetName.text.toString() + " Updated", Snackbar.LENGTH_SHORT).show()
-                requireView().findNavController().navigate(R.id.action_navigation_edit_class_to_navigation_classes)
+                Snackbar.make(
+                    requireView(),
+                    binding.editSetName.text.toString() + " Updated",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                requireView().findNavController()
+                    .navigate(R.id.action_navigation_edit_class_to_navigation_classes)
             } else {
-                Snackbar.make(requireView(),
-                "Fields Cannot Be Empty",
-                Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    requireView(),
+                    "Fields Cannot Be Empty",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
             true
         }

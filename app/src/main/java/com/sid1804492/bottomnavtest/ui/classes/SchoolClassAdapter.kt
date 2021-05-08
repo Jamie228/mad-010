@@ -67,18 +67,21 @@ class SchoolClassAdapter : RecyclerView.Adapter<SchoolClassAdapter.ViewHolder>()
                                     }
                                 )
                                 setNegativeButton("Cancel",
-                                DialogInterface.OnClickListener{ dialog, id ->
-                                    //Cancel!
-                                })
+                                    DialogInterface.OnClickListener { dialog, id ->
+                                        //Cancel!
+                                    })
                             }
-                            builder.setMessage("Do you want to delete " + item.SetName.toString() + "? This will delete all associated To-Do items, and cannot be undone.").setTitle("Delete Class")
+                            builder.setMessage("Do you want to delete " + item.SetName.toString() + "? This will delete all associated To-Do items, and cannot be undone.")
+                                .setTitle("Delete Class")
                             builder.show()
 
                             true
                         }
                         R.id.edit_menu_item -> {
                             view.findNavController().navigate(
-                                ClassesFragmentDirections.actionNavigationClassesToNavigationEditClass(item.ClassId)
+                                ClassesFragmentDirections.actionNavigationClassesToNavigationEditClass(
+                                    item.ClassId
+                                )
                             )
                             true
                         }

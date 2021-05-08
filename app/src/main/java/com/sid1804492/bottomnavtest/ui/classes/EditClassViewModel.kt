@@ -24,7 +24,7 @@ class EditClassViewModel(
         }
     }
 
-    private suspend fun getClass(id: Long) : SchoolClass? {
+    private suspend fun getClass(id: Long): SchoolClass? {
         return dataSource.getClass(id)
     }
 

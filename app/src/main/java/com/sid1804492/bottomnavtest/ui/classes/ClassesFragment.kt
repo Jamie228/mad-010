@@ -19,32 +19,28 @@ class ClassesFragment : Fragment() {
     private lateinit var classesViewModel: ClassesViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         val binding: FragmentClassesBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_classes, container, false)
+            inflater, R.layout.fragment_classes, container, false
+        )
 
-        val application = requireNotNull(this.activity).application
+        val application = requireActivity().application
         val dataSource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
         val viewModelFactory = ClassesViewModelFactory(dataSource, application)
 
         classesViewModel =
-                ViewModelProvider(this, viewModelFactory).get(ClassesViewModel::class.java)
-
-        val root = inflater.inflate(R.layout.fragment_classes, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_dashboard)
-//        classesViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
+            ViewModelProvider(this, viewModelFactory).get(ClassesViewModel::class.java)
 
         binding.classesViewModel = classesViewModel
         binding.lifecycleOwner = this
 
-        binding.newClassButton.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_navigation_classes_to_navigation_new_class)
+        binding.newClassButton.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(R.id.action_navigation_classes_to_navigation_new_class)
         }
 
         val adapter = SchoolClassAdapter()

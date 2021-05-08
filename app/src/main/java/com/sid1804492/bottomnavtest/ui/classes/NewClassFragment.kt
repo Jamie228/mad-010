@@ -35,7 +35,8 @@ class NewClassFragment : Fragment() {
         val dataSource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
         val viewModelFactory = NewClassViewModelFactory(dataSource, application)
 
-        newClassViewModel = ViewModelProvider(this, viewModelFactory).get(NewClassViewModel::class.java)
+        newClassViewModel =
+            ViewModelProvider(this, viewModelFactory).get(NewClassViewModel::class.java)
 
         binding.setName.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
         binding.setName.isSingleLine = true
@@ -64,7 +65,12 @@ class NewClassFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_menu_button -> {
-            val textFields = listOf<EditText>(binding.classroom, binding.setName, binding.subjectName, binding.yearGroup)
+            val textFields = listOf<EditText>(
+                binding.classroom,
+                binding.setName,
+                binding.subjectName,
+                binding.yearGroup
+            )
             var emptyField: Boolean = false
             hideKeyboard(requireActivity())
 
@@ -86,7 +92,8 @@ class NewClassFragment : Fragment() {
                     "Class Saved",
                     Snackbar.LENGTH_SHORT
                 ).show()
-                view?.findNavController()?.navigate(R.id.action_navigation_new_class_to_navigation_classes)
+                view?.findNavController()
+                    ?.navigate(R.id.action_navigation_new_class_to_navigation_classes)
             } else {
                 Snackbar.make(
                     requireView(),

@@ -11,8 +11,8 @@ class NewClassViewModelFactory(
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(NewClassViewModel::class.java)) {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(NewClassViewModel::class.java)) {
             return NewClassViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

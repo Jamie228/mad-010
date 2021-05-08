@@ -16,7 +16,8 @@ class NewClassViewModel(val database: TeacherPlannerDao, application: Applicatio
 
     fun onSave(set: String, name: String, year: String, room: String) {
         viewModelScope.launch {
-            val newClass = SchoolClass(Room = room, SubjectName = name, SetName = set, YearGroup = year)
+            val newClass =
+                SchoolClass(Room = room, SubjectName = name, SetName = set, YearGroup = year)
             insert(newClass)
         }
     }

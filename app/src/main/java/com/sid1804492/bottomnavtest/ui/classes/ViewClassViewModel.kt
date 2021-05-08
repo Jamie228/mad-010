@@ -10,7 +10,8 @@ import java.util.*
 
 class ViewClassViewModel(
     private val classId: Long,
-    dataSource: TeacherPlannerDao): ViewModel() {
+    dataSource: TeacherPlannerDao
+) : ViewModel() {
 
     //Get database and class
     val database = dataSource

@@ -21,8 +21,8 @@ import kotlinx.coroutines.launch
 class ViewClassFragment : Fragment() {
 
     //Lateinit binding and arguments vars so accessible in all methods.
-    private lateinit var binding:FragmentViewClassBinding
-    private lateinit var arguments:ViewClassFragmentArgs
+    private lateinit var binding: FragmentViewClassBinding
+    private lateinit var arguments: ViewClassFragmentArgs
     private lateinit var curclass: SchoolClass
 
     override fun onCreateView(
@@ -31,7 +31,8 @@ class ViewClassFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_view_class, container, false)
+            inflater, R.layout.fragment_view_class, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         arguments = ViewClassFragmentArgs.fromBundle(requireArguments())
@@ -40,13 +41,15 @@ class ViewClassFragment : Fragment() {
         val viewModelFactory = ViewClassViewModelFactory(arguments.classId, dataSource)
 
         val viewClassViewModel = ViewModelProvider(
-            this, viewModelFactory).get(ViewClassViewModel::class.java)
+            this, viewModelFactory
+        ).get(ViewClassViewModel::class.java)
 
         binding.viewClassViewModel = viewClassViewModel
         binding.lifecycleOwner = this
 
         viewClassViewModel.onOldDelete()
 
+        //Populate class details
         viewClassViewModel.curClass.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 curclass = it
@@ -68,7 +71,9 @@ class ViewClassFragment : Fragment() {
         })
 
         binding.newTodoFAB.setOnClickListener { view ->
-            view.findNavController().navigate(ViewClassFragmentDirections.actionNavigationViewClassToNavigationNewTodo(curclass.ClassId))
+            view.findNavController().navigate(
+                ViewClassFragmentDirections.actionNavigationViewClassToNavigationNewTodo(curclass.ClassId)
+            )
         }
 
         // Inflate the layout for this fragment
