@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
@@ -42,6 +43,7 @@ class TodayFragment : Fragment() {
 
     private lateinit var todayViewModel: TodayViewModel
     private lateinit var binding: FragmentTodayBinding
+    private lateinit var res: Resources
 
     //Locaion Variables
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -65,6 +67,12 @@ class TodayFragment : Fragment() {
 
         binding.todayViewModel = todayViewModel
         binding.lifecycleOwner = this
+
+        res = resources
+
+        binding.weatherText.setTextColor(resources.getColor(R.color.secondaryTextColor))
+        binding.weatherIcon.setTextColor(resources.getColor(R.color.secondaryTextColor))
+        binding.weatherImage.setImageBitmap(null)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -209,6 +217,11 @@ class TodayFragment : Fragment() {
                         pBar.visibility = View.INVISIBLE
                         weatherIcon.text = weatherIcon(data.weather[0].icon)
                         weatherIcon.visibility = View.VISIBLE
+                        val imageDetails = weatherImage(data.weather[0].icon)
+                        binding.weatherImage.setImageResource(imageDetails[0])
+                        binding.weatherIcon.setTextColor(imageDetails[1])
+                        binding.weatherText.setTextColor(imageDetails[1])
+                        binding.dateHeader.setTextColor(imageDetails[1])
                     }
                 } else {
                     Log.d("Response Error", response.raw().request.url.toString())
@@ -285,6 +298,66 @@ class TodayFragment : Fragment() {
             else -> {
                 return resources.getString(R.string.wi_na)
             }
+        }
+    }
+
+    private fun weatherImage(icon: String) : List<Int> = when (icon) {
+        "01d" -> {
+            listOf(R.drawable.sun, res.getColor(R.color.black))
+        }
+        "01n" -> {
+            listOf(R.drawable.clear_night, res.getColor(R.color.white))
+        }
+        "02d" -> {
+            listOf(R.drawable.cloudy_day, res.getColor(R.color.black))
+        }
+        "02n" -> {
+            listOf(R.drawable.cloudy_night, res.getColor(R.color.white))
+        }
+        "03d" -> {
+            listOf(R.drawable.cloudy_day, res.getColor(R.color.black))
+        }
+        "03n" -> {
+            listOf(R.drawable.cloudy_night, res.getColor(R.color.white))
+        }
+        "04d" -> {
+            listOf(R.drawable.cloudy_day, res.getColor(R.color.black))
+        }
+        "04n" -> {
+            listOf(R.drawable.cloudy_night, res.getColor(R.color.white))
+        }
+        "09d" -> {
+            listOf(R.drawable.rain, res.getColor(R.color.white))
+        }
+        "09n" -> {
+            listOf(R.drawable.rain, res.getColor(R.color.white))
+        }
+        "10d" -> {
+            listOf(R.drawable.rain, res.getColor(R.color.white))
+        }
+        "10n" -> {
+            listOf(R.drawable.rain, res.getColor(R.color.white))
+        }
+        "11d" -> {
+            listOf(R.drawable.thunderstorm, res.getColor(R.color.white))
+        }
+        "11n" -> {
+            listOf(R.drawable.thunderstorm, res.getColor(R.color.white))
+        }
+        "13d" -> {
+            listOf(R.drawable.snow, res.getColor(R.color.black))
+        }
+        "13n" -> {
+            listOf(R.drawable.snow, res.getColor(R.color.black))
+        }
+        "50d" -> {
+            listOf(R.drawable.dust, res.getColor(R.color.black))
+        }
+        "50n" -> {
+            listOf(R.drawable.dust, res.getColor(R.color.black))
+        }
+        else -> {
+            listOf(0,R.color.secondaryTextColor)
         }
     }
 

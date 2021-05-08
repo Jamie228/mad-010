@@ -10,6 +10,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
 
 class NotificationReceiver : BroadcastReceiver() {
 
@@ -23,11 +24,15 @@ class NotificationHelper(private val mContext: Context) {
     fun createNotification() {
         val intent = Intent(mContext, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        val resultPendingIntent = PendingIntent.getActivity(
-            mContext,
-            0 /* Request code */, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+//        val resultPendingIntent = PendingIntent.getActivity(
+//            mContext,
+//            0 /* Request code */, intent,
+//            PendingIntent.FLAG_UPDATE_CURRENT
+//        )
+        val resultPendingIntent = NavDeepLinkBuilder(mContext)
+            .setGraph(R.navigation.mobile_navigation)
+            .setDestination(R.id.navigation_new_wellbeing)
+            .createPendingIntent()
         val mBuilder =
             NotificationCompat.Builder(
                 mContext,

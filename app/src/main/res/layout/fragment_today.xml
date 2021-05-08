@@ -15,6 +15,18 @@
         android:layout_height="match_parent"
         tools:context=".ui.today.TodayFragment">
 
+        <ImageView
+            android:id="@+id/weatherImage"
+            android:layout_width="405dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/loadingWeather"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/dust" />
+
         <TextView
             android:id="@+id/date_header"
             android:layout_width="match_parent"
@@ -34,9 +46,10 @@
         <TextView
             android:id="@+id/weather_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="164dp"
+            android:textColor="@color/black"
             android:textSize="30sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,10 +63,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/weatherImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date_header"
+            app:layout_constraintVertical_bias="0.0"
             tools:visibility="visible" />
 
         <TextView
@@ -64,6 +80,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/weather_icons"
+            android:textColor="@color/black"
             android:textSize="28sp"
             app:layout_constraintEnd_toStartOf="@+id/weather_text"
             app:layout_constraintHorizontal_bias="1.0"
@@ -75,12 +92,10 @@
             android:id="@+id/today_fragment_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loadingWeather"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/weatherImage"
+            app:tabMode="fixed">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/todo_tab"
@@ -109,6 +124,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/today_fragment_tabs" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

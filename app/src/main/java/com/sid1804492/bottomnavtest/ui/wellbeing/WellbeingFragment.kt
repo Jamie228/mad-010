@@ -45,8 +45,10 @@ class WellbeingFragment : Fragment() {
                 adapter.data = it
                 if (adapter.data.size == 0) {
                     binding.noWellbeingText.visibility = View.VISIBLE
+                    binding.averageLabel.visibility = View.GONE
                 } else {
                     binding.noWellbeingText.visibility = View.GONE
+                    binding.averageLabel.visibility = View.VISIBLE
                     var total = 0.0f
                     for (x in it) {
                         total += x.rating
