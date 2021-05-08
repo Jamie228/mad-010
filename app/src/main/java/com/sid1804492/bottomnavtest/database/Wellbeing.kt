@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName="wellbeing_table")
-data class Wellbeing (
+@Entity(tableName = "wellbeing_table")
+data class Wellbeing(
 
     @PrimaryKey(autoGenerate = true)
     val WellbeingId: Long = 0L,

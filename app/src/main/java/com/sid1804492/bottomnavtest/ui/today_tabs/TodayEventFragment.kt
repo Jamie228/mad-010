@@ -36,9 +36,9 @@ class TodayEventFragment : Fragment() {
         binding.eventsRecyclerView.adapter = adapter
 
         todayEventViewModel.events.observe(viewLifecycleOwner, Observer {
-            it?.let{
+            it?.let {
                 adapter.data = it
-                if(adapter.data.size == 0) {
+                if (adapter.data.size == 0) {
                     binding.noEventsListText.visibility = View.VISIBLE
                 } else {
                     binding.noEventsListText.visibility = View.GONE

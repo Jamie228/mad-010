@@ -17,7 +17,7 @@ class TodayTodoViewModel(val database: TeacherPlannerDao, application: Applicati
         val y = cal.get(Calendar.YEAR)
         nCal = Calendar.getInstance()
         nCal.clear()
-        nCal.set(y,m,d)
+        nCal.set(y, m, d)
     }
 
     val todos = database.getTodayTodos(nCal.timeInMillis)

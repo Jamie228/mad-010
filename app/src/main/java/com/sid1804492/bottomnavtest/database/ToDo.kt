@@ -6,10 +6,15 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "todo_table", foreignKeys = [ForeignKey(entity = SchoolClass::class,
-    parentColumns = arrayOf("ClassId"), childColumns = arrayOf("class_id"), onDelete = ForeignKey.CASCADE)]
+@Entity(
+    tableName = "todo_table", foreignKeys = [ForeignKey(
+        entity = SchoolClass::class,
+        parentColumns = arrayOf("ClassId"),
+        childColumns = arrayOf("class_id"),
+        onDelete = ForeignKey.CASCADE
+    )]
 )
-data class ToDo (
+data class ToDo(
     @PrimaryKey(autoGenerate = true)
     val TodoId: Long = 0L,
 

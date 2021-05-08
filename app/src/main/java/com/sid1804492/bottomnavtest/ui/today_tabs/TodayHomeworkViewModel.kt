@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import com.sid1804492.bottomnavtest.database.TeacherPlannerDao
 import java.util.*
 
-class TodayHomeworkViewModel(val database: TeacherPlannerDao, application: Application)
-    : AndroidViewModel(application) {
+class TodayHomeworkViewModel(val database: TeacherPlannerDao, application: Application) :
+    AndroidViewModel(application) {
 
     private var nCal: Calendar
 
@@ -17,7 +17,7 @@ class TodayHomeworkViewModel(val database: TeacherPlannerDao, application: Appli
         val y = cal.get(Calendar.YEAR)
         nCal = Calendar.getInstance()
         nCal.clear()
-        nCal.set(y,m,d)
+        nCal.set(y, m, d)
     }
 
     val homeworks = database.getTodayHomework(nCal.timeInMillis)

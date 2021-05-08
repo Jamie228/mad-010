@@ -50,14 +50,15 @@ class TodayHomeworkAdapter : RecyclerView.Adapter<TodayHomeworkAdapter.ViewHolde
             setName.text = item.setName
             todoInfo.text = item.todoText
 
-            if(item.complete) {
+            if (item.complete) {
                 setName.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
                 todoInfo.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
-                itemView.findViewById<CardView>(R.id.item_card).setCardBackgroundColor(res.getColor(R.color.inactive))
+                itemView.findViewById<CardView>(R.id.item_card)
+                    .setCardBackgroundColor(res.getColor(R.color.inactive))
                 moreButton.setBackgroundColor(res.getColor(R.color.inactive))
 
                 moreButton.setOnClickListener { view ->
@@ -90,13 +91,17 @@ class TodayHomeworkAdapter : RecyclerView.Adapter<TodayHomeworkAdapter.ViewHolde
                                             //Cancel!
                                         })
                                 }
-                                builder.setMessage("Do you want to delete this piece of homework? This cannot be undone.").setTitle("Delete Homework?")
+                                builder.setMessage("Do you want to delete this piece of homework? This cannot be undone.")
+                                    .setTitle("Delete Homework?")
                                 builder.show()
                                 true
                             }
                             R.id.today_item_edit_two -> {
                                 view.findNavController().navigate(
-                                    TodayFragmentDirections.actionNavigationHomeToNavigationEditTodo(item.id, "home")
+                                    TodayFragmentDirections.actionNavigationHomeToNavigationEditTodo(
+                                        item.id,
+                                        "home"
+                                    )
                                 )
                                 true
                             }
@@ -113,7 +118,8 @@ class TodayHomeworkAdapter : RecyclerView.Adapter<TodayHomeworkAdapter.ViewHolde
 
                 setName.paintFlags = 0
                 todoInfo.paintFlags = 0
-                itemView.findViewById<CardView>(R.id.item_card).setCardBackgroundColor(res.getColor(R.color.white))
+                itemView.findViewById<CardView>(R.id.item_card)
+                    .setCardBackgroundColor(res.getColor(R.color.white))
                 moreButton.setBackgroundColor(res.getColor(R.color.white))
 
                 moreButton.setOnClickListener { view ->
@@ -140,13 +146,17 @@ class TodayHomeworkAdapter : RecyclerView.Adapter<TodayHomeworkAdapter.ViewHolde
                                             //Cancel!
                                         })
                                 }
-                                builder.setMessage("Do you want to delete this piece of homework? This cannot be undone.").setTitle("Delete Homework?")
+                                builder.setMessage("Do you want to delete this piece of homework? This cannot be undone.")
+                                    .setTitle("Delete Homework?")
                                 builder.show()
                                 true
                             }
                             R.id.today_item_edit -> {
                                 view.findNavController().navigate(
-                                    TodayFragmentDirections.actionNavigationHomeToNavigationEditTodo(item.id, "home")
+                                    TodayFragmentDirections.actionNavigationHomeToNavigationEditTodo(
+                                        item.id,
+                                        "home"
+                                    )
                                 )
                                 true
                             }

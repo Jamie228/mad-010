@@ -49,14 +49,15 @@ class TodayEventAdapter : RecyclerView.Adapter<TodayEventAdapter.ViewHolder>() {
         fun bind(item: Event) {
             setName.text = item.EventName
             todoInfo.text = item.EventText
-            if(item.Complete) {
+            if (item.Complete) {
                 setName.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
                 todoInfo.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
-                itemView.findViewById<CardView>(R.id.item_card).setCardBackgroundColor(res.getColor(R.color.inactive))
+                itemView.findViewById<CardView>(R.id.item_card)
+                    .setCardBackgroundColor(res.getColor(R.color.inactive))
                 moreButton.setBackgroundColor(res.getColor(R.color.inactive))
 
                 moreButton.setOnClickListener { view ->
@@ -89,13 +90,17 @@ class TodayEventAdapter : RecyclerView.Adapter<TodayEventAdapter.ViewHolder>() {
                                             //Cancel!
                                         })
                                 }
-                                builder.setMessage("Do you want to delete this Event? This cannot be undone.").setTitle("Delete Event?")
+                                builder.setMessage("Do you want to delete this Event? This cannot be undone.")
+                                    .setTitle("Delete Event?")
                                 builder.show()
                                 true
                             }
                             R.id.today_item_edit_two -> {
                                 view.findNavController().navigate(
-                                    TodayFragmentDirections.ActionNavigationHomeToNavigationEditEvent(item.EventId, "today")
+                                    TodayFragmentDirections.ActionNavigationHomeToNavigationEditEvent(
+                                        item.EventId,
+                                        "today"
+                                    )
                                 )
                                 true
                             }
@@ -112,7 +117,8 @@ class TodayEventAdapter : RecyclerView.Adapter<TodayEventAdapter.ViewHolder>() {
 
                 setName.paintFlags = 0
                 todoInfo.paintFlags = 0
-                itemView.findViewById<CardView>(R.id.item_card).setCardBackgroundColor(res.getColor(R.color.white))
+                itemView.findViewById<CardView>(R.id.item_card)
+                    .setCardBackgroundColor(res.getColor(R.color.white))
                 moreButton.setBackgroundColor(res.getColor(R.color.white))
 
                 moreButton.setOnClickListener { view ->
@@ -139,13 +145,17 @@ class TodayEventAdapter : RecyclerView.Adapter<TodayEventAdapter.ViewHolder>() {
                                             //Cancel!
                                         })
                                 }
-                                builder.setMessage("Do you want to delete this Event? This cannot be undone.").setTitle("Delete Event?")
+                                builder.setMessage("Do you want to delete this Event? This cannot be undone.")
+                                    .setTitle("Delete Event?")
                                 builder.show()
                                 true
                             }
                             R.id.today_item_edit -> {
                                 view.findNavController().navigate(
-                                    TodayFragmentDirections.ActionNavigationHomeToNavigationEditEvent(item.EventId, "today")
+                                    TodayFragmentDirections.ActionNavigationHomeToNavigationEditEvent(
+                                        item.EventId,
+                                        "today"
+                                    )
                                 )
                                 true
                             }

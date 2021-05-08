@@ -39,7 +39,7 @@ class TodayHomeworkFragment : Fragment() {
         todayHomeworkViewModel.homeworks.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
-                if(adapter.data.size == 0) {
+                if (adapter.data.size == 0) {
                     binding.noHomeworkText.visibility = View.VISIBLE
                 } else {
                     binding.noHomeworkText.visibility = View.GONE

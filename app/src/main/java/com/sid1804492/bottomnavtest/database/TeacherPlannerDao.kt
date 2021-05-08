@@ -122,7 +122,4 @@ interface TeacherPlannerDao {
     @Query("SELECT * FROM todo_table WHERE TodoId = :key")
     suspend fun getTodo(key: Long) : ToDo?
 
-//    @Query("SELECT * FROM wellbeing_table ORDER BY date DESC LIMIT 7")
-//    suspend fun wellbeingRecentSeven(): LiveData<List<Wellbeing>>
-
 }

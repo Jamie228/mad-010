@@ -61,23 +61,23 @@ class TodayFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = TeacherPlannerDatabase.getInstance(application).teacherPlannerDao
         val viewModelFactory = TodayViewModelFactory(dataSource, application)
-
         todayViewModel =
             ViewModelProvider(this, viewModelFactory).get(TodayViewModel::class.java)
-
         binding.todayViewModel = todayViewModel
         binding.lifecycleOwner = this
-
         res = resources
-
+        //Set up labels with standard colours
         binding.weatherText.setTextColor(resources.getColor(R.color.secondaryTextColor))
         binding.weatherIcon.setTextColor(resources.getColor(R.color.secondaryTextColor))
         binding.weatherImage.setImageBitmap(null)
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
+        //Check user's location preference
         todayViewModel.locOp.observe(viewLifecycleOwner, Observer { it ->
-            if(!checkPermission() && it == null) {
+            if (!checkPermission() && it == null) {
+                //Display dialog
                 val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
                 builder.apply {
                     setPositiveButton("Yes, Enable Location",
@@ -86,14 +86,16 @@ class TodayFragment : Fragment() {
                             getLastLocation()
                         })
                     setNegativeButton("No Thanks",
-                        DialogInterface.OnClickListener{ dialog, which ->
+                        DialogInterface.OnClickListener { dialog, which ->
                             todayViewModel.createLoc(false)
                         })
                 }
-                builder.setMessage("This app uses your location to show you weather information. We don't store your location, but we will remember your preference.").setTitle("Enable Location?")
+                builder.setMessage("This app uses your location to show you weather information. We don't store your location, but we will remember your preference.")
+                    .setTitle("Enable Location?")
                 builder.show()
             } else if (it != null) {
                 if (!checkPermission() && it.value) {
+                    //Display dialog
                     val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
                     builder.apply {
                         setPositiveButton("Yes, Enable Location",
@@ -101,11 +103,12 @@ class TodayFragment : Fragment() {
                                 getLastLocation()
                             })
                         setNegativeButton("No Thanks",
-                            DialogInterface.OnClickListener{ dialog, which ->
+                            DialogInterface.OnClickListener { dialog, which ->
                                 todayViewModel.onLocUpdate(it, false)
                             })
                     }
-                    builder.setMessage("This app uses your location to show you weather information. We don't store your location, but we will remember your preference.").setTitle("Enable Location?")
+                    builder.setMessage("This app uses your location to show you weather information. We don't store your location, but we will remember your preference.")
+                        .setTitle("Enable Location?")
                     builder.show()
                 }
             } else {
@@ -116,8 +119,8 @@ class TodayFragment : Fragment() {
         val fragmentAdapter = TodayAdapter(this)
         binding.todayViewPager.adapter = fragmentAdapter
 
-        TabLayoutMediator(binding.todayFragmentTabs, binding.todayViewPager) { tab, position->
-            when(position) {
+        TabLayoutMediator(binding.todayFragmentTabs, binding.todayViewPager) { tab, position ->
+            when (position) {
                 0 -> {
                     tab.text = "To-Do's"
                     todayViewModel.todoNo.observe(viewLifecycleOwner, Observer {
@@ -174,9 +177,9 @@ class TodayFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.refresh_menu -> {
-            if(checkPermission()) {
+            if (checkPermission()) {
                 getLastLocation()
             }
             true
@@ -186,6 +189,14 @@ class TodayFragment : Fragment() {
         }
     }
 
+    /**
+     * Gets data from weather API
+     *
+     * @param lat The user's latitude
+     * @param lon The user's longitude
+     * @return void
+     * @author 1804492 / P110103851
+     */
     private fun getCurrentData(lat: Double, lon: Double) {
 
         val weather = binding.weatherText
@@ -239,7 +250,13 @@ class TodayFragment : Fragment() {
         }
     }
 
-    private fun weatherIcon(icon_code: String) : CharSequence? {
+    /**
+     * Gets weather icon from API icon code
+     *
+     * @param icon_code The icon_code returned by the API
+     * @return An icon from the weather symbol font
+     */
+    private fun weatherIcon(icon_code: String): CharSequence? {
         when (icon_code) {
             "01d" -> {
                 return resources.getString(R.string.wi_day_sunny)
@@ -301,7 +318,13 @@ class TodayFragment : Fragment() {
         }
     }
 
-    private fun weatherImage(icon: String) : List<Int> = when (icon) {
+    /**
+     * Gets appropriate weather image from icon_code
+     *
+     * @param icon The icon code from the weather API
+     * @return A list where index 0 is the image and index 1 is the colour of any text
+     */
+    private fun weatherImage(icon: String): List<Int> = when (icon) {
         "01d" -> {
             listOf(R.drawable.sun, res.getColor(R.color.black))
         }
@@ -357,17 +380,22 @@ class TodayFragment : Fragment() {
             listOf(R.drawable.dust, res.getColor(R.color.black))
         }
         else -> {
-            listOf(0,R.color.secondaryTextColor)
+            listOf(0, R.color.secondaryTextColor)
         }
     }
 
     override fun onResume() {
-        if(checkPermission()) {
+        if (checkPermission()) {
             getLastLocation()
         }
         super.onResume()
     }
 
+    /**
+     * Checks user's permissions
+     *
+     * @return True if permissions granted. Else false.
+     */
     private fun checkPermission(): Boolean {
 
         if (ActivityCompat.checkSelfPermission(
@@ -385,6 +413,9 @@ class TodayFragment : Fragment() {
         return false
     }
 
+    /**
+     * Requests permissions
+     */
     private fun requestPermision() {
         requestPermissions(
             arrayOf(
@@ -394,6 +425,11 @@ class TodayFragment : Fragment() {
         )
     }
 
+    /**
+     * Checks if user's location is enabled
+     *
+     * @return True if enabled. Else false.
+     */
     private fun isLocationEnabled(): Boolean {
         var locationManager: LocationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -402,9 +438,12 @@ class TodayFragment : Fragment() {
         )
     }
 
-    private fun getLastLocation(){
-        if(checkPermission()) {
-            if(isLocationEnabled()) {
+    /**
+     * Get user's last location
+     */
+    private fun getLastLocation() {
+        if (checkPermission()) {
+            if (isLocationEnabled()) {
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
                     var location = task.result
                     if (location == null) {
@@ -430,7 +469,7 @@ class TodayFragment : Fragment() {
             numUpdates = 2
         }
         fusedLocationProviderClient.requestLocationUpdates(
-            locationRequest,locationCallback,Looper.myLooper()
+            locationRequest, locationCallback, Looper.myLooper()
         )
     }
 
@@ -456,7 +495,7 @@ class TodayFragment : Fragment() {
 
             }
         } else {
-            Log.d ("Mismatch", "reqCode: " + requestCode)
+            Log.d("Mismatch", "reqCode: " + requestCode)
         }
     }
 }

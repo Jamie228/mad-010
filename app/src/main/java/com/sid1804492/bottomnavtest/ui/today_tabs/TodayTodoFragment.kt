@@ -37,7 +37,7 @@ class TodayTodoFragment : Fragment() {
         binding.todoList.adapter = adapter
 
         todayTodoViewModel.todos.observe(viewLifecycleOwner, Observer {
-            it?.let{
+            it?.let {
                 adapter.data = it
                 if (adapter.data.size == 0) {
                     binding.noTodayTodoText.visibility = View.VISIBLE

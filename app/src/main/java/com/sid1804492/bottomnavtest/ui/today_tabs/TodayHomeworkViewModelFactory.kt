@@ -13,7 +13,7 @@ class TodayHomeworkViewModelFactory(
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(TodayHomeworkViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(TodayHomeworkViewModel::class.java)) {
             return TodayHomeworkViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
